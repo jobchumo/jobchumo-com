@@ -4,9 +4,369 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Chumo | Network Security Engineer</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #f5f5f5;
+            --accent-color: #3182ce;
+            --secondary-color: #2c2c2c;
+            --spacing: 2rem;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing);
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Network Animation Background */
+        .network-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            opacity: 0.15;
+            overflow: hidden;
+        }
+        
+        .node {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+        }
+        
+        .connection {
+            position: absolute;
+            height: 1px;
+            background-color: rgba(49, 130, 206, 0.5);
+            transform-origin: left center;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing) 0;
+            border-bottom: 1px solid var(--secondary-color);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--accent-color);
+        }
+        
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 80vh;
+            padding: var(--spacing) 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .button {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .button:hover {
+            background-color: #2c5282;
+        }
+        
+        .button.secondary {
+            background-color: transparent;
+            border: 1px solid var(--text-color);
+        }
+        
+        .button.secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        section {
+            padding: var(--spacing) 0;
+            border-bottom: 1px solid var(--secondary-color);
+            position: relative;
+            z-index: 1;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        /* Timeline Styles */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background-color: var(--accent-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1.5px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            animation: fadeIn 0.5s ease-in-out forwards;
+            opacity: 0;
+        }
+        
+        .timeline-item-left {
+            left: 0;
+        }
+        
+        .timeline-item-right {
+            left: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--bg-color);
+            border: 3px solid var(--accent-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .timeline-item-left::after {
+            right: -13px;
+        }
+        
+        .timeline-item-right::after {
+            left: -13px;
+        }
+        
+        .timeline-content {
+            padding: 20px 25px;
+            background-color: var(--secondary-color);
+            position: relative;
+            border-radius: 6px;
+        }
+        
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            border-width: 10px;
+            border-style: solid;
+            top: 15px;
+        }
+        
+        .timeline-item-left .timeline-content::after {
+            border-color: transparent var(--secondary-color) transparent transparent;
+            right: 100%;
+        }
+        
+        .timeline-item-right .timeline-content::after {
+            border-color: transparent transparent transparent var(--secondary-color);
+            left: 100%;
+        }
+        
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .timeline-date {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .timeline-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+        
+        .timeline-description {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .skill-category {
+            margin-bottom: 2rem;
+        }
+        
+        .skill-category h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+        
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .skill-tag {
+            background-color: var(--secondary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .certification {
+            margin-bottom: 2rem;
+        }
+        
+        .certification-org {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        footer {
+            padding: var(--spacing) 0;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item-right {
+                left: 0;
+            }
+            
+            .timeline-item::after {
+                left: 21px;
+            }
+            
+            .timeline-item-left .timeline-content::after {
+                border-color: transparent transparent transparent var(--secondary-color);
+                left: 100%;
+                right: auto;
+            }
+            
+            .timeline-item-right .timeline-content::after {
+                border-color: transparent transparent transparent var(--secondary-color);
+                left: 100%;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Network Animation Background -->
+    <div class="network-bg" id="networkBackground"></div>
+    
     <nav>
         <div class="logo">JC</div>
         <div class="nav-links">
@@ -27,61 +387,56 @@
     </section>
     
     <section id="experience">
-        <h2>Experience</h2>
+        <h2>Experience Timeline</h2>
         
-        <div class="experience-item">
-            <div class="experience-header">
-                <div>
-                    <div class="company">African Guarantee Fund</div>
-                    <div class="role">Network Security Engineer</div>
+        <div class="timeline">
+            <div class="timeline-item timeline-item-right">
+                <div class="timeline-content">
+                    <div class="timeline-date">Dec 2023 – Present</div>
+                    <div class="timeline-title">African Guarantee Fund</div>
+                    <div class="timeline-subtitle">Network Security Engineer</div>
+                    <div class="timeline-description">
+                        Configuring and securing enterprise network infrastructure, implementing security protocols and network segmentation. Managing containerized applications in Proxmox environments while monitoring and responding to security incidents.
+                    </div>
                 </div>
-                <div class="date">Dec 2023 – Present</div>
             </div>
-            <ul>
-                <li>Setup and configuration of bare metal servers, firewalls, network equipment, and VoIP infrastructure</li>
-                <li>Executing network segmentation strategies to enhance system performance and security</li>
-                <li>Implementing network security configurations, including firewall ACLs and intrusion detection systems</li>
-                <li>Administering Active Directory, including replication, user accounts, and group policies</li>
-                <li>Designing and maintaining DNS and DHCP services with failover systems</li>
-                <li>Deployment of containerized internal applications in a Proxmox environment</li>
-                <li>Monitoring, reporting, and responding to network and security incidents</li>
-            </ul>
-        </div>
-        
-        <div class="experience-item">
-            <div class="experience-header">
-                <div>
-                    <div class="company">UN Environment Programme</div>
-                    <div class="role">Program Support</div>
+            
+            <div class="timeline-item timeline-item-left">
+                <div class="timeline-content">
+                    <div class="timeline-date">Sep 2023 – Nov 2023</div>
+                    <div class="timeline-title">UN Environment Programme</div>
+                    <div class="timeline-subtitle">Program Support</div>
+                    <div class="timeline-description">
+                        Researched environmental wastewater issues and drafted project documents for the World Environment Situation Room. Facilitated UI design and prototype development by creating user journeys and scenarios for project direction.
+                    </div>
                 </div>
-                <div class="date">Sep 2023 – Nov 2023</div>
             </div>
-            <ul>
-                <li>Researched and summarized science on environmental issues regarding Wastewater</li>
-                <li>Drafted project documents for the World Environment Situation Room's Solutions Space</li>
-                <li>Established partnerships with relevant institutions and organizations</li>
-                <li>Facilitated UI design and prototype development by drafting user journeys</li>
-            </ul>
-        </div>
-        
-        <div class="experience-item">
-            <div class="experience-header">
-                <div>
-                    <div class="company">Kenya Airways</div>
-                    <div class="role">IT Service Delivery Intern</div>
+            
+            <div class="timeline-item timeline-item-right">
+                <div class="timeline-content">
+                    <div class="timeline-date">May 2022 – Oct 2022</div>
+                    <div class="timeline-title">Kenya Airways</div>
+                    <div class="timeline-subtitle">IT Service Delivery Intern</div>
+                    <div class="timeline-description">
+                        Managed IT support in a 24/7 environment, coordinating incident responses and training incoming staff. Monitored critical systems and led restoration efforts during network outages.
+                    </div>
                 </div>
-                <div class="date">May 2022 – Oct 2022</div>
             </div>
-            <ul>
-                <li>Analyzed and resolved IT calls in a 24/7 environment</li>
-                <li>Monitored, reported, and escalated network issues</li>
-                <li>Trained incoming employees on IT procedures and systems</li>
-                <li>Coordinated restoration efforts during critical IT outages</li>
-            </ul>
+            
+            <div class="timeline-item timeline-item-left">
+                <div class="timeline-content">
+                    <div class="timeline-date">2019 – 2022</div>
+                    <div class="timeline-title">Strathmore University</div>
+                    <div class="timeline-subtitle">Bachelor of Science in Informatics and Computer Science</div>
+                    <div class="timeline-description">
+                        Graduated with Second Class Honors Upper Division, developing strong foundations in networking, programming, and information security.
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
     
-    <section id="skills">
+    <section id="skills" class="fade-in">
         <h2>Technical Skills</h2>
         <div class="skills-grid">
             <div class="skill-category">
@@ -132,7 +487,7 @@
         </div>
     </section>
     
-    <section id="certifications">
+    <section id="certifications" class="fade-in">
         <h2>Certifications</h2>
         
         <div class="certification">
@@ -160,44 +515,7 @@
         </div>
     </section>
     
-    <section id="education">
-        <h2>Education</h2>
-        
-        <div class="experience-item">
-            <div class="experience-header">
-                <div>
-                    <div class="company">Strathmore University</div>
-                    <div class="role">Bachelor of Science in Informatics and Computer Science</div>
-                </div>
-                <div class="date">2019 – 2022</div>
-            </div>
-            <p>Second Class Honors Upper Division</p>
-        </div>
-        
-        <div class="experience-item">
-            <div class="experience-header">
-                <div>
-                    <div class="company">Strathmore University</div>
-                    <div class="role">Diploma in Business Information Technology</div>
-                </div>
-                <div class="date">2018</div>
-            </div>
-            <p>Merit</p>
-        </div>
-        
-        <div class="experience-item">
-            <div class="experience-header">
-                <div>
-                    <div class="company">Kapsabet High School</div>
-                    <div class="role">Kenya Certificate of Secondary Education</div>
-                </div>
-                <div class="date">2014 – 2017</div>
-            </div>
-            <p>A-</p>
-        </div>
-    </section>
-    
-    <section id="contact">
+    <section id="contact" class="fade-in">
         <h2>Contact</h2>
         <p class="subtitle">Interested in working together? Get in touch.</p>
         
@@ -246,5 +564,162 @@
     <footer>
         <p>&copy; 2025 Job Kipchirchir Chumo. All rights reserved.</p>
     </footer>
+    
+    <script>
+        // Network Animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const networkBg = document.getElementById('networkBackground');
+            const nodeCount = 20;
+            const connectionLimit = 5;
+            const nodes = [];
+            
+            // Create nodes
+            for (let i = 0; i < nodeCount; i++) {
+                const node = document.createElement('div');
+                node.className = 'node';
+                
+                // Random position
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                
+                node.style.left = `${x}px`;
+                node.style.top = `${y}px`;
+                
+                // Random speed
+                const vx = (Math.random() - 0.5) * 0.5;
+                const vy = (Math.random() - 0.5) * 0.5;
+                
+                nodes.push({
+                    element: node,
+                    x,
+                    y,
+                    vx,
+                    vy
+                });
+                
+                networkBg.appendChild(node);
+            }
+            
+            // Create connections between nodes
+            const connections = [];
+            
+            function updateConnections() {
+                // Remove all existing connections
+                connections.forEach(conn => conn.element.remove());
+                connections.length = 0;
+                
+                // Create new connections based on proximity
+                for (let i = 0; i < nodes.length; i++) {
+                    const nodeA = nodes[i];
+                    let connectedCount = 0;
+                    
+                    for (let j = i + 1; j < nodes.length; j++) {
+                        if (connectedCount >= connectionLimit) break;
+                        
+                        const nodeB = nodes[j];
+                        const dx = nodeB.x - nodeA.x;
+                        const dy = nodeB.y - nodeA.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < 200) {
+                            const connection = document.createElement('div');
+                            connection.className = 'connection';
+                            
+                            const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+                            
+                            connection.style.width = `${distance}px`;
+                            connection.style.left = `${nodeA.x}px`;
+                            connection.style.top = `${nodeA.y}px`;
+                            connection.style.transform = `rotate(${angle}deg)`;
+                            
+                            // Opacity based on distance
+                            connection.style.opacity = (1 - distance / 200) * 0.5;
+                            
+                            connections.push({
+                                element: connection,
+                                nodeA: i,
+                                nodeB: j
+                            });
+                            
+                            networkBg.appendChild(connection);
+                            connectedCount++;
+                        }
+                    }
+                }
+            }
+            
+            // Animation loop
+            function animate() {
+                // Update node positions
+                nodes.forEach(node => {
+                    node.x += node.vx;
+                    node.y += node.vy;
+                    
+                    // Bounce off walls
+                    if (node.x < 0 || node.x > window.innerWidth) node.vx *= -1;
+                    if (node.y < 0 || node.y > window.innerHeight) node.vy *= -1;
+                    
+                    // Update DOM element
+                    node.element.style.left = `${node.x}px`;
+                    node.element.style.top = `${node.y}px`;
+                });
+                
+                // Update connections periodically
+                if (Math.random() < 0.05) {
+                    updateConnections();
+                }
+                
+                requestAnimationFrame(animate);
+            }
+            
+            // Initial connections
+            updateConnections();
+            
+            // Start animation
+            animate();
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                // Reposition nodes within new window bounds
+                nodes.forEach(node => {
+                    if (node.x > window.innerWidth) node.x = window.innerWidth - 10;
+                    if (node.y > window.innerHeight) node.y = window.innerHeight - 10;
+                });
+                
+                updateConnections();
+            });
+        });
+        
+        // Scroll animation for timeline items
+        document.addEventListener('DOMContentLoaded', function() {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            let delay = 0;
+            
+            timelineItems.forEach(item => {
+                setTimeout(() => {
+                    item.style.animationDelay = `${delay}ms`;
+                    item.style.animationPlayState = 'running';
+                }, delay);
+                delay += 300;
+            });
+            
+            // Fade-in animation for sections
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
 </body>
 </html>
