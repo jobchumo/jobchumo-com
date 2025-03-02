@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const networkBg = document.getElementById('networkBackground');
-    const nodeCount = 60;
-    const connectionLimit = 5;
+    const nodeCount = 70;
+    const connectionLimit = 10;
     const nodes = [];
     
     // Create nodes
