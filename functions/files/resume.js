@@ -1,14 +1,5 @@
 export async function onRequest({ request, env }) {
     try {
-        // Debug information
-        if (!env) {
-            return new Response("Environment is undefined", { status: 500 });
-        }
-
-        if (!env.WEBSITE_FILES) {
-            return new Response("R2 binding 'WEBSITE_FILES' is not available. Check your Cloudflare Pages configuration.", { status: 500 });
-        }
-
         const object = await env.WEBSITE_FILES.get("JobChumoResume.pdf");
 
         if (object === null) {
