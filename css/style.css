@@ -4,6 +4,9 @@
     --accent-color: #3182ce;
     --secondary-color: #2c2c2c;
     --spacing: 2rem;
+    /* Add these new variables */
+    --menu-transition-timing: cubic-bezier(0.645, 0.045, 0.355, 1);
+    --menu-transition-duration: 0.4s;
 }
 
 * {
@@ -97,11 +100,23 @@ a:hover {
     height: 2px;
     width: 100%;
     background-color: var(--text-color);
-    transition: all 0.3s ease;
+    transform: translateZ(0); /* Enable hardware acceleration */
+    will-change: transform, opacity; /* Hint to browser about what will change */
+    transition: transform var(--menu-transition-duration) var(--menu-transition-timing),
+    opacity calc(var(--menu-transition-duration) - 0.1s) ease;
+}
+
+/* Add transition delays to create a smoother sequence */
+.hamburger-menu span:nth-child(2) {
+    transition-delay: 0.05s;
+}
+
+.hamburger-menu span:nth-child(3) {
+    transition-delay: 0.1s;
 }
 
 .hamburger-menu.active span:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
+    transform: translateY(8px) rotate(45deg) translateZ(0);
 }
 
 .hamburger-menu.active span:nth-child(2) {
@@ -109,7 +124,7 @@ a:hover {
 }
 
 .hamburger-menu.active span:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
+    transform: translateY(-8px) rotate(-45deg) translateZ(0);
 }
 
 .hero {
