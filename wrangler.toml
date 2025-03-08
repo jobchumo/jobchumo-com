@@ -1,0 +1,3 @@
+[[r2_buckets]]
+binding = "WEBSITE_FILES" # This must match the env.WEBSITE_FILES in your worker
+bucket_name = "files"
