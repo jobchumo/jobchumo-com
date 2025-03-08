@@ -81,6 +81,37 @@ a:hover {
     color: var(--accent-color);
 }
 
+/* Hamburger Menu Styles */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.hamburger-menu span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.hamburger-menu.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
 .hero {
     display: flex;
     flex-direction: column;
@@ -320,37 +351,78 @@ footer {
     h1 {
         font-size: 3rem;
     }
-    
+
     .timeline::after {
         left: 31px;
     }
-    
+
     .timeline-item {
         width: 100%;
         padding-left: 70px;
         padding-right: 25px;
     }
-    
+
     .timeline-item-right {
         left: 0;
     }
-    
+
     .timeline-item::after {
         left: 21px;
     }
-    
+
     .timeline-item-left .timeline-content::after {
         border-color: transparent transparent transparent var(--secondary-color);
         left: 100%;
         right: auto;
     }
-    
+
     .timeline-item-right .timeline-content::after {
         border-color: transparent transparent transparent var(--secondary-color);
         left: 100%;
     }
-    
+
     .skills-grid {
         grid-template-columns: 1fr;
+    }
+
+    /* Mobile Navigation Styles */
+    .hamburger-menu {
+        display: flex;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background-color: var(--bg-color);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: right 0.3s ease;
+        z-index: 9;
+        padding: 2rem;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-links a {
+        margin: 1.5rem 0;
+        font-size: 1.2rem;
+    }
+
+    /* Add this to ensure the hamburger doesn't overlap with existing content */
+    nav {
+        position: relative;
+        z-index: 10;
+    }
+
+    /* Add this to ensure the content is hidden behind the menu when open */
+    body.menu-open {
+        overflow: hidden;
     }
 }
