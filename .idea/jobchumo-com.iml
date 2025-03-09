@@ -9,5 +9,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="jobchumo-com-worker" />
+    <orderEntry type="library" name="@emailjs/browser" level="application" />
   </component>
 </module>
