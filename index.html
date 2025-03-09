@@ -17,16 +17,31 @@
 
 <nav>
     <div class="logo">JC</div>
-    <div class="hamburger-menu" id="hamburgerMenu">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
     <div class="nav-links" id="navLinks">
         <a href="#experience">Experience</a>
         <a href="#skills">Skills</a>
         <a href="#certifications">Certifications</a>
         <a href="#contact">Contact</a>
+        <!-- Desktop theme toggle -->
+        <label class="theme-toggle" id="desktopThemeToggle">
+            <input type="checkbox" id="themeToggleCheckbox">
+            <span class="theme-toggle-slider"></span>
+        </label>
+        <!-- Move mobile theme toggle here -->
+        <div class="mobile-theme-toggle">
+            <div class="theme-toggle-wrapper">
+                <span>Light Mode</span>
+                <label class="theme-toggle">
+                    <input type="checkbox" id="mobileThemeToggleCheckbox">
+                    <span class="theme-toggle-slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="hamburger-menu" id="hamburgerMenu">
+        <span></span>
+        <span></span>
+        <span></span>
     </div>
 </nav>
 
@@ -82,12 +97,13 @@
                 <div class="timeline-title">Strathmore University</div>
                 <div class="timeline-subtitle"><em>Bachelor of Science in Informatics and Computer Science</em></div>
                 <div class="timeline-description">
-                    Graduated with Second Class Honors Upper Division.
+                    Completed coursework focused on network security, systems administration, and software development with honors.
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 
 <section id="skills" class="fade-in">
     <h2>Technical Skills</h2>
@@ -240,8 +256,9 @@
     emailjs.init('CAyMa8HzgGlR8tsNb');
 </script>
 
-<script src="js/networkAnimation.js"></script>
-<script src="js/main.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/networkAnimation.js"></script>
+<script src="/js/themeToggle.js"></script>
 <script src="js/email.js"></script>
 </body>
 </html>
