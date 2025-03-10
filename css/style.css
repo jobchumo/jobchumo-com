@@ -333,6 +333,9 @@ footer {
     position: relative;
     z-index: 1;
 }
+.light-mode footer {
+    color: var(--light-text-color);
+}
 
 /* ===== Network Background Animation ===== */
 .network-bg {
