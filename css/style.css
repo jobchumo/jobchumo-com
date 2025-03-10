@@ -414,6 +414,10 @@ footer {
     border-radius: 50%;
     z-index: 1;
 }
+.light-mode .timeline-item::after {
+    background-color: var(--light-bg-color);
+    border: 3px solid var(--light-accent-color);
+}
 
 .timeline-item-left::after {
     right: -13px;
@@ -447,10 +451,16 @@ footer {
     border-color: transparent var(--secondary-color) transparent transparent;
     right: 100%;
 }
+.light-mode .timeline-item-left .timeline-content::after {
+    border-color: transparent var(--light-secondary-color) transparent transparent;
+}
 
 .timeline-item-right .timeline-content::after {
     border-color: transparent transparent transparent var(--secondary-color);
     left: 100%;
+}
+.light-mode .timeline-item-right .timeline-content::after {
+    border-color: transparent transparent transparent var(--light-secondary-color);
 }
 
 .timeline-date {
