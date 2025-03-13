@@ -12,6 +12,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ===== Scroll Animations =====
     initScrollAnimations();
+    
+    // ===== iOS Theme Fix =====
+    initIOSThemeFix();
 });
 
 /**
@@ -111,4 +114,71 @@ function initScrollAnimations() {
     fadeElements.forEach(element => {
         observer.observe(element);
     });
+}
+
+/**
+ * Initializes fixes for iOS theme switching issues
+ * Adds event listeners to handle iOS-specific theme rendering problems
+ */
+function initIOSThemeFix() {
+    // Detect iOS device
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    
+    if (isIOS) {
+        // Add event listener for theme changes
+        document.addEventListener('themeChanged', function() {
+            // Force repaint on iOS by temporarily changing a CSS property
+            document.body.style.display = 'none';
+            // Force reflow
+            void document.body.offsetHeight;
+            document.body.style.display = '';
+            
+            // Force repaint on specific elements that might not update properly
+            forceElementsRepaint();
+        });
+        
+        // Also listen for class changes on body as a fallback
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.attributeName === 'class' && 
+                    (mutation.target.classList.contains('light-mode') || 
+                     !mutation.target.classList.contains('light-mode'))) {
+                    forceElementsRepaint();
+                }
+            });
+        });
+        
+        // Start observing the body for class changes
+        observer.observe(document.body, { attributes: true });
+    }
+    
+    /**
+     * Forces a repaint on specific elements that might not update properly on iOS
+     */
+    function forceElementsRepaint() {
+        const elementsToRepaint = [
+            '.network-bg',
+            '.node',
+            '.connection',
+            'section',
+            '.timeline-item',
+            '.skill-tag',
+            '.contact-form',
+            '.social-links'
+        ];
+        
+        elementsToRepaint.forEach(selector => {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(element => {
+                // Save original display value
+                const originalDisplay = window.getComputedStyle(element).display;
+                // Force repaint by temporarily changing display
+                element.style.display = 'none';
+                // Force reflow
+                void element.offsetHeight;
+                // Restore original display
+                element.style.display = originalDisplay;
+            });
+        });
+    }
 }

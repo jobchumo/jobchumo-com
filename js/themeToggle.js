@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
             body.classList.add('light-mode');
             desktopThemeToggle.checked = true;
             mobileThemeToggle.checked = true;
+            updateNetworkAnimationTheme(true);
         }
     }
     
@@ -55,8 +56,69 @@ document.addEventListener('DOMContentLoaded', function() {
         desktopThemeToggle.checked = isLightMode;
         mobileThemeToggle.checked = isLightMode;
         
+        // Update network animation theme
+        updateNetworkAnimationTheme(isLightMode);
+        
+        // Force repaint on iOS devices to ensure all elements update
+        forceRepaint();
+        
         // Save preference to localStorage
         localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+        
+        // Dispatch custom event for theme change
+        document.dispatchEvent(new CustomEvent('themeChanged', {
+            detail: { isLightMode: isLightMode }
+        }));
+    }
+    
+    /**
+     * Updates the network animation elements to match the current theme
+     * @param {boolean} isLightMode - Whether light mode is active
+     */
+    function updateNetworkAnimationTheme(isLightMode) {
+        // Update network nodes
+        const nodes = document.querySelectorAll('.node');
+        nodes.forEach(node => {
+            if (isLightMode) {
+                node.style.backgroundColor = 'var(--light-node-color)';
+            } else {
+                node.style.backgroundColor = '#ffffff';
+            }
+        });
+        
+        // Update network connections
+        const connections = document.querySelectorAll('.connection');
+        connections.forEach(connection => {
+            if (isLightMode) {
+                connection.style.backgroundColor = 'var(--light-connection-color)';
+            } else {
+                connection.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+            }
+        });
+    }
+    
+    /**
+     * Forces a repaint on iOS devices to ensure theme changes apply uniformly
+     */
+    function forceRepaint() {
+        // This technique forces a repaint by temporarily modifying a property
+        const sections = document.querySelectorAll('section');
+        sections.forEach(section => {
+            const originalDisplay = section.style.display;
+            section.style.display = 'none';
+            // Force reflow
+            void section.offsetHeight;
+            section.style.display = originalDisplay;
+        });
+        
+        // Also force repaint on the network background
+        const networkBg = document.getElementById('networkBackground');
+        if (networkBg) {
+            const originalDisplay = networkBg.style.display;
+            networkBg.style.display = 'none';
+            void networkBg.offsetHeight;
+            networkBg.style.display = originalDisplay;
+        }
     }
     
     /**

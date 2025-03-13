@@ -337,31 +337,38 @@ footer {
     color: var(--light-text-color);
 }
 
-/* ===== Network Background Animation ===== */
+/* ===== Network Animation ===== */
 .network-bg {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
+    width: 100%;
+    height: 100%;
     z-index: -1;
-    opacity: 0.15;
     overflow: hidden;
+    pointer-events: none;
+    transition: background-color 0.3s ease;
+}
+
+.light-mode .network-bg {
+    background-color: var(--light-bg-color);
 }
 
 .node {
     position: absolute;
     width: 4px;
     height: 4px;
-    background-color: var(--accent-color);
     border-radius: 50%;
+    background-color: #ffffff;
+    transition: background-color 0.3s ease;
 }
 
 .connection {
     position: absolute;
     height: 1px;
-    background-color: rgba(49, 130, 206, 0.5);
+    background-color: rgba(255, 255, 255, 0.2);
     transform-origin: left center;
+    transition: background-color 0.3s ease;
 }
 
 .light-mode .node {

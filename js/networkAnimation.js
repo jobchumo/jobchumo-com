@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     updateConnections();
     animate();
     setupResizeHandler();
+    setupThemeChangeListener();
     
     /**
      * Creates and initializes all nodes with random positions and velocities
@@ -36,6 +37,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // Create DOM element
             const node = document.createElement('div');
             node.className = 'node';
+            
+            // Apply theme-appropriate styling
+            applyNodeTheme(node);
             
             // Random position within viewport
             const x = Math.random() * window.innerWidth;
@@ -100,6 +104,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function createConnection(nodeA, nodeB, distance, dx, dy) {
         const connection = document.createElement('div');
         connection.className = 'connection';
+        
+        // Apply theme-appropriate styling
+        applyConnectionTheme(connection);
         
         // Calculate rotation angle
         const angle = Math.atan2(dy, dx) * 180 / Math.PI;
@@ -166,5 +173,81 @@ document.addEventListener('DOMContentLoaded', function() {
             // Update connections after resize
             updateConnections();
         });
+    }
+    
+    /**
+     * Sets up a listener for theme changes to update network elements
+     */
+    function setupThemeChangeListener() {
+        // Create a MutationObserver to watch for class changes on the body
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.attributeName === 'class') {
+                    const isLightMode = document.body.classList.contains('light-mode');
+                    updateNetworkTheme(isLightMode);
+                }
+            });
+        });
+        
+        // Start observing the body for class changes
+        observer.observe(document.body, { attributes: true });
+        
+        // Initial theme application
+        const isLightMode = document.body.classList.contains('light-mode');
+        updateNetworkTheme(isLightMode);
+    }
+    
+    /**
+     * Updates all network elements to match the current theme
+     * @param {boolean} isLightMode - Whether light mode is active
+     */
+    function updateNetworkTheme(isLightMode) {
+        // Update all nodes
+        nodes.forEach(node => {
+            applyNodeTheme(node.element, isLightMode);
+        });
+        
+        // Update all connections
+        connections.forEach(connection => {
+            applyConnectionTheme(connection.element, isLightMode);
+        });
+    }
+    
+    /**
+     * Applies theme-appropriate styling to a node element
+     * @param {HTMLElement} nodeElement - The node DOM element
+     * @param {boolean} [isLightMode] - Whether light mode is active (optional)
+     */
+    function applyNodeTheme(nodeElement, isLightMode) {
+        // If isLightMode is not provided, check the body class
+        if (isLightMode === undefined) {
+            isLightMode = document.body.classList.contains('light-mode');
+        }
+        
+        // Apply appropriate styling based on theme
+        if (isLightMode) {
+            nodeElement.style.backgroundColor = 'var(--light-node-color)';
+        } else {
+            nodeElement.style.backgroundColor = '#ffffff';
+        }
+    }
+    
+    /**
+     * Applies theme-appropriate styling to a connection element
+     * @param {HTMLElement} connectionElement - The connection DOM element
+     * @param {boolean} [isLightMode] - Whether light mode is active (optional)
+     */
+    function applyConnectionTheme(connectionElement, isLightMode) {
+        // If isLightMode is not provided, check the body class
+        if (isLightMode === undefined) {
+            isLightMode = document.body.classList.contains('light-mode');
+        }
+        
+        // Apply appropriate styling based on theme
+        if (isLightMode) {
+            connectionElement.style.backgroundColor = 'var(--light-connection-color)';
+        } else {
+            connectionElement.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+        }
     }
 });
