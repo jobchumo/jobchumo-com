@@ -699,16 +699,20 @@ footer {
 
     /* Mobile Navigation */
     .hamburger-menu {
-        display: flex;
+        display: flex !important;
         position: relative;
         z-index: 101; /* Ensure it's above the nav menu */
+        width: 24px;
+        height: 18px;
+        margin-right: 10px;
+        cursor: pointer;
     }
 
     .nav-links {
         position: fixed;
         top: 0;
         right: -100%;
-        width: 70%;
+        width: 80%; /* Increased width */
         height: 100vh;
         background-color: var(--bg-color) !important; /* Force background color */
         flex-direction: column;
@@ -735,9 +739,12 @@ footer {
 
     .nav-links a {
         margin: 1.5rem 0;
-        font-size: 1.2rem;
+        font-size: 1.5rem; /* Larger font size */
         color: var(--text-color) !important; /* Force text color */
         opacity: 1 !important; /* Force full opacity */
+        display: block; /* Ensure block display */
+        width: 100%; /* Full width */
+        text-align: center; /* Center text */
     }
 
     .light-mode .nav-links a {
@@ -747,6 +754,7 @@ footer {
     .theme-toggle {
         margin: 15px 0;
         opacity: 1 !important; /* Force full opacity */
+        transform: scale(1.2); /* Make toggle slightly larger */
     }
 
     .nav-links .theme-toggle-wrapper {
@@ -755,6 +763,7 @@ footer {
         width: 100%;
         padding: 0 1rem;
         opacity: 1 !important; /* Force full opacity */
+        margin-top: 1rem;
     }
 
     .nav-links .theme-toggle-wrapper span {

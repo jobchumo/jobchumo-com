@@ -316,6 +316,19 @@ function forceMobileNavVisibility() {
             hamburgerMenu.style.display = 'flex';
             hamburgerMenu.style.opacity = '1';
             hamburgerMenu.style.zIndex = '101';
+            hamburgerMenu.style.width = '24px';
+            hamburgerMenu.style.height = '18px';
+            hamburgerMenu.style.cursor = 'pointer';
+            
+            // Make hamburger lines more visible
+            const hamburgerLines = hamburgerMenu.querySelectorAll('span');
+            hamburgerLines.forEach(line => {
+                line.style.backgroundColor = document.body.classList.contains('light-mode') ? 
+                    'var(--light-text-color)' : 'var(--text-color)';
+                line.style.height = '2px';
+                line.style.width = '100%';
+                line.style.opacity = '1';
+            });
             
             // Ensure nav links are properly styled when inactive
             if (!navLinks.classList.contains('active')) {
@@ -324,19 +337,47 @@ function forceMobileNavVisibility() {
                 navLinks.style.flexDirection = 'column';
                 navLinks.style.opacity = '1';
                 navLinks.style.zIndex = '100';
+                navLinks.style.width = '80%';
             }
+            
+            // Style the links to be more visible
+            const links = navLinks.querySelectorAll('a');
+            links.forEach(link => {
+                link.style.fontSize = '1.5rem';
+                link.style.display = 'block';
+                link.style.width = '100%';
+                link.style.textAlign = 'center';
+                link.style.margin = '1.5rem 0';
+                link.style.color = document.body.classList.contains('light-mode') ? 
+                    'var(--light-text-color)' : 'var(--text-color)';
+                link.style.opacity = '1';
+            });
             
             // Add click event with timeout to ensure it works
             setTimeout(() => {
-                hamburgerMenu.addEventListener('click', function forceToggle() {
+                hamburgerMenu.addEventListener('click', function forceToggle(e) {
+                    e.stopPropagation(); // Prevent event bubbling
+                    
                     // This is a backup in case the main toggle doesn't work
-                    if (navLinks.classList.contains('active')) {
+                    if (!navLinks.classList.contains('active')) {
+                        navLinks.classList.add('active');
                         navLinks.style.right = '0';
                         navLinks.style.display = 'flex';
+                        hamburgerMenu.classList.add('active');
                     } else {
+                        navLinks.classList.remove('active');
                         navLinks.style.right = '-100%';
+                        hamburgerMenu.classList.remove('active');
                     }
                 });
+            }, 500);
+            
+            // Force a check on page load
+            setTimeout(() => {
+                // If the menu is supposed to be active but isn't showing correctly
+                if (navLinks.classList.contains('active') && navLinks.style.right !== '0') {
+                    navLinks.style.right = '0';
+                }
             }, 1000);
         }
     }

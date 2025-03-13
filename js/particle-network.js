@@ -37,8 +37,8 @@
 		this.canvas = parent.canvas;
 		this.ctx = parent.ctx;
 		this.particleColor = returnRandomArrayitem(this.network.options.particleColors);
-		// Smaller particles
-		this.radius = getLimitedRandom(0.8, 1.5);
+		// Slightly larger particles
+		this.radius = getLimitedRandom(1.2, 2.0);
 		// Start with lower opacity
 		this.opacity = 0;
 		this.x = x || Math.random() * this.canvas.width;
@@ -50,10 +50,10 @@
 	};
 
 	Particle.prototype.update = function() {
-		if (this.opacity < 0.5) { // Lower max opacity
-			this.opacity += 0.005; // Slower fade in
+		if (this.opacity < 0.8) { // Higher max opacity
+			this.opacity += 0.01; // Faster fade in
 		} else {
-			this.opacity = 0.5; // Lower max opacity
+			this.opacity = 0.8; // Higher max opacity
 		}
 		// Change dir if outside map
 		if (this.x > this.canvas.width + 100 || this.x < -100) {
@@ -91,15 +91,15 @@
 				const r = parseInt(color.slice(1, 3), 16);
 				const g = parseInt(color.slice(3, 5), 16);
 				const b = parseInt(color.slice(5, 7), 16);
-				return `rgba(${r}, ${g}, ${b}, 0.5)`; // Increased opacity
+				return `rgba(${r}, ${g}, ${b}, 0.8)`; // Higher opacity for better visibility
 			}
 			// If it's already rgba, just adjust the opacity
 			return color.replace(/rgba?\(([^)]+)\)/, (_, p1) => {
 				const parts = p1.split(',');
 				if (parts.length >= 4) {
-					parts[3] = '0.5'; // Set opacity to 0.5
+					parts[3] = '0.8'; // Set opacity to 0.8
 				} else {
-					parts.push('0.5'); // Add opacity of 0.5
+					parts.push('0.8'); // Add opacity of 0.8
 				}
 				return `rgba(${parts.join(',')})`;
 			});
@@ -109,7 +109,7 @@
 		
 		this.options = {
 			velocity: 0.7, // Slower velocity
-			density: 20000, // Adjusted density for better visibility
+			density: 15000, // Higher density (lower number = more particles)
 			netLineDistance: 150, // Shorter connection distance
 			netLineColor: transparentAccentColor,
 			particleColors: [transparentAccentColor] // Use transparent accent color
@@ -207,9 +207,9 @@
 
 					this.ctx.beginPath();
 					this.ctx.strokeStyle = this.options.netLineColor;
-					// Lower line opacity
-					this.ctx.globalAlpha = (this.options.netLineDistance - distance) / this.options.netLineDistance * p1.opacity * p2.opacity * 0.6;
-					this.ctx.lineWidth = 0.5; // Thinner lines
+					// Increase line opacity
+					this.ctx.globalAlpha = (this.options.netLineDistance - distance) / this.options.netLineDistance * p1.opacity * p2.opacity * 0.9;
+					this.ctx.lineWidth = 0.8; // Thicker lines
 					this.ctx.moveTo(p1.x, p1.y);
 					this.ctx.lineTo(p2.x, p2.y);
 					this.ctx.stroke();
@@ -361,15 +361,15 @@
 								const r = parseInt(color.slice(1, 3), 16);
 								const g = parseInt(color.slice(3, 5), 16);
 								const b = parseInt(color.slice(5, 7), 16);
-								return `rgba(${r}, ${g}, ${b}, 0.5)`; // Increased opacity
+								return `rgba(${r}, ${g}, ${b}, 0.8)`; // Higher opacity for better visibility
 							}
 							// If it's already rgba, just adjust the opacity
 							return color.replace(/rgba?\(([^)]+)\)/, (_, p1) => {
 								const parts = p1.split(',');
 								if (parts.length >= 4) {
-									parts[3] = '0.5'; // Set opacity to 0.5
+									parts[3] = '0.8'; // Set opacity to 0.8
 								} else {
-									parts.push('0.5'); // Add opacity of 0.5
+									parts.push('0.8'); // Add opacity of 0.8
 								}
 								return `rgba(${parts.join(',')})`;
 							});

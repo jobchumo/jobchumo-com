@@ -6,7 +6,7 @@
 	height: 100vh;
 	background-color: var(--bg-color);
 	z-index: -5;
-	opacity: 0.7;
+	opacity: 0.9;
 	pointer-events: none;
 	width: 100%;
 	overflow: hidden;
@@ -17,13 +17,13 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  background-image: radial-gradient(circle closest-side, rgba(49, 130, 206, 0.03), transparent);
-  opacity: 0.6;
+  background-image: radial-gradient(circle closest-side, rgba(49, 130, 206, 0.08), transparent);
+  opacity: 0.8;
   pointer-events: none;
 }
 
 .light-mode .glow {
-  background-image: radial-gradient(circle closest-side, rgba(37, 99, 235, 0.03), transparent);
+  background-image: radial-gradient(circle closest-side, rgba(37, 99, 235, 0.08), transparent);
 }
 
 .glow-1 {
