@@ -18,6 +18,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ===== Android Fix =====
     initAndroidFix();
+    
+    // ===== Force Mobile Nav Visibility =====
+    forceMobileNavVisibility();
 });
 
 /**
@@ -65,6 +68,23 @@ function initMobileNavigation() {
         navLinks.classList.toggle('active');
         body.classList.toggle('menu-open');
 
+        // Ensure the nav links are visible
+        if (navLinks.classList.contains('active')) {
+            navLinks.style.display = 'flex';
+            navLinks.style.opacity = '1';
+            
+            // Apply explicit styles to ensure visibility
+            navLinks.style.backgroundColor = body.classList.contains('light-mode') ? 
+                'var(--light-bg-color)' : 'var(--bg-color)';
+                
+            // Make links visible
+            links.forEach(link => {
+                link.style.color = body.classList.contains('light-mode') ? 
+                    'var(--light-text-color)' : 'var(--text-color)';
+                link.style.opacity = '1';
+            });
+        }
+
         // Show/hide mobile theme toggle
         if (mobileThemeToggle) {
             mobileThemeToggle.style.display = navLinks.classList.contains('active') ? 'block' : 'none';
@@ -74,7 +94,7 @@ function initMobileNavigation() {
         if (/Android/.test(navigator.userAgent)) {
             navLinks.style.display = 'none';
             void navLinks.offsetHeight;
-            navLinks.style.display = '';
+            navLinks.style.display = 'flex';
         }
     }
 
@@ -279,5 +299,45 @@ function initAndroidFix() {
         
         // Start observing the body for class changes
         observer.observe(document.body, { attributes: true });
+    }
+}
+
+/**
+ * Force mobile navigation visibility on problematic devices
+ */
+function forceMobileNavVisibility() {
+    // Apply this fix for all mobile devices
+    if (window.innerWidth <= 768) {
+        const navLinks = document.getElementById('navLinks');
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        
+        if (navLinks && hamburgerMenu) {
+            // Ensure hamburger menu is visible
+            hamburgerMenu.style.display = 'flex';
+            hamburgerMenu.style.opacity = '1';
+            hamburgerMenu.style.zIndex = '101';
+            
+            // Ensure nav links are properly styled when inactive
+            if (!navLinks.classList.contains('active')) {
+                navLinks.style.right = '-100%';
+                navLinks.style.display = 'flex';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.opacity = '1';
+                navLinks.style.zIndex = '100';
+            }
+            
+            // Add click event with timeout to ensure it works
+            setTimeout(() => {
+                hamburgerMenu.addEventListener('click', function forceToggle() {
+                    // This is a backup in case the main toggle doesn't work
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.style.right = '0';
+                        navLinks.style.display = 'flex';
+                    } else {
+                        navLinks.style.right = '-100%';
+                    }
+                });
+            }, 1000);
+        }
     }
 }

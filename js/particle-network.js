@@ -28,8 +28,8 @@
 	};
 
 	PNA.prototype.sizeCanvas = function() {
-		this.canvas.width = this.container.offsetWidth;
-		this.canvas.height = this.container.offsetHeight;
+		this.canvas.width = this.container.offsetWidth || window.innerWidth;
+		this.canvas.height = this.container.offsetHeight || window.innerHeight;
 	};
 
 	var Particle = function(parent, x, y) {
@@ -91,15 +91,15 @@
 				const r = parseInt(color.slice(1, 3), 16);
 				const g = parseInt(color.slice(3, 5), 16);
 				const b = parseInt(color.slice(5, 7), 16);
-				return `rgba(${r}, ${g}, ${b}, 0.4)`; // Lower opacity
+				return `rgba(${r}, ${g}, ${b}, 0.5)`; // Increased opacity
 			}
-			// If it's already rgba, just lower the opacity
+			// If it's already rgba, just adjust the opacity
 			return color.replace(/rgba?\(([^)]+)\)/, (_, p1) => {
 				const parts = p1.split(',');
 				if (parts.length >= 4) {
-					parts[3] = '0.4'; // Set opacity to 0.4
+					parts[3] = '0.5'; // Set opacity to 0.5
 				} else {
-					parts.push('0.4'); // Add opacity of 0.4
+					parts.push('0.5'); // Add opacity of 0.5
 				}
 				return `rgba(${parts.join(',')})`;
 			});
@@ -109,7 +109,7 @@
 		
 		this.options = {
 			velocity: 0.7, // Slower velocity
-			density: 25000, // Less dense (higher number = fewer particles)
+			density: 20000, // Adjusted density for better visibility
 			netLineDistance: 150, // Shorter connection distance
 			netLineColor: transparentAccentColor,
 			particleColors: [transparentAccentColor] // Use transparent accent color
@@ -339,61 +339,73 @@
 	// Initialize on document ready
 	document.addEventListener('DOMContentLoaded', function() {
 		// Initialize the particle network animation
-		var pna = new ParticleNetworkAnimation();
-		pna.init($('.particle-network-animation')[0]);
-		
-		// Handle theme changes
-		function updateParticleColors() {
-			const isLightMode = document.body.classList.contains('light-mode');
-			if (pna.particleNetwork) {
-				// Get CSS variables for colors
-				const accentColor = isLightMode ? 
-					getComputedStyle(document.documentElement).getPropertyValue('--light-accent-color').trim() : 
-					getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim();
+		try {
+			const particleContainer = $('.particle-network-animation')[0];
+			if (particleContainer) {
+				var pna = new ParticleNetworkAnimation();
+				pna.init(particleContainer);
 				
-				// Create a more transparent version of the accent color
-				const getTransparentColor = (color) => {
-					// If it's a hex color, convert to rgba
-					if (color.startsWith('#')) {
-						const r = parseInt(color.slice(1, 3), 16);
-						const g = parseInt(color.slice(3, 5), 16);
-						const b = parseInt(color.slice(5, 7), 16);
-						return `rgba(${r}, ${g}, ${b}, 0.4)`; // Lower opacity
+				// Handle theme changes
+				function updateParticleColors() {
+					const isLightMode = document.body.classList.contains('light-mode');
+					if (pna.particleNetwork) {
+						// Get CSS variables for colors
+						const accentColor = isLightMode ? 
+							getComputedStyle(document.documentElement).getPropertyValue('--light-accent-color').trim() : 
+							getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim();
+						
+						// Create a more transparent version of the accent color
+						const getTransparentColor = (color) => {
+							// If it's a hex color, convert to rgba
+							if (color.startsWith('#')) {
+								const r = parseInt(color.slice(1, 3), 16);
+								const g = parseInt(color.slice(3, 5), 16);
+								const b = parseInt(color.slice(5, 7), 16);
+								return `rgba(${r}, ${g}, ${b}, 0.5)`; // Increased opacity
+							}
+							// If it's already rgba, just adjust the opacity
+							return color.replace(/rgba?\(([^)]+)\)/, (_, p1) => {
+								const parts = p1.split(',');
+								if (parts.length >= 4) {
+									parts[3] = '0.5'; // Set opacity to 0.5
+								} else {
+									parts.push('0.5'); // Add opacity of 0.5
+								}
+								return `rgba(${parts.join(',')})`;
+							});
+						};
+						
+						const transparentAccentColor = getTransparentColor(accentColor || (isLightMode ? '#2563eb' : '#3182ce'));
+						
+						// Update colors based on theme
+						pna.particleNetwork.options.netLineColor = transparentAccentColor;
+						pna.particleNetwork.options.particleColors = [transparentAccentColor];
 					}
-					// If it's already rgba, just lower the opacity
-					return color.replace(/rgba?\(([^)]+)\)/, (_, p1) => {
-						const parts = p1.split(',');
-						if (parts.length >= 4) {
-							parts[3] = '0.4'; // Set opacity to 0.4
-						} else {
-							parts.push('0.4'); // Add opacity of 0.4
-						}
-						return `rgba(${parts.join(',')})`;
-					});
-				};
-				
-				const transparentAccentColor = getTransparentColor(accentColor || (isLightMode ? '#2563eb' : '#3182ce'));
-				
-				// Update colors based on theme
-				pna.particleNetwork.options.netLineColor = transparentAccentColor;
-				pna.particleNetwork.options.particleColors = [transparentAccentColor];
-			}
-		}
-		
-		// Create a MutationObserver to watch for class changes on the body
-		const observer = new MutationObserver(function(mutations) {
-			mutations.forEach(function(mutation) {
-				if (mutation.attributeName === 'class') {
-					updateParticleColors();
 				}
-			});
-		});
-		
-		// Start observing the body for class changes
-		observer.observe(document.body, { attributes: true });
-		
-		// Initial theme application
-		updateParticleColors();
+				
+				// Create a MutationObserver to watch for class changes on the body
+				const observer = new MutationObserver(function(mutations) {
+					mutations.forEach(function(mutation) {
+						if (mutation.attributeName === 'class') {
+							updateParticleColors();
+						}
+					});
+				});
+				
+				// Start observing the body for class changes
+				observer.observe(document.body, { attributes: true });
+				
+				// Initial theme application
+				updateParticleColors();
+				
+				// Force a resize event after a short delay to ensure proper rendering
+				setTimeout(function() {
+					window.dispatchEvent(new Event('resize'));
+				}, 500);
+			}
+		} catch (error) {
+			console.error('Error initializing particle network:', error);
+		}
 	});
 
 })(); 
