@@ -1,20 +1,53 @@
+/**
+ * Theme Toggle Functionality
+ * Handles switching between light and dark themes with user preference persistence
+ */
+
 document.addEventListener('DOMContentLoaded', function() {
+    // DOM Elements
     const desktopThemeToggle = document.getElementById('themeToggleCheckbox');
     const mobileThemeToggle = document.getElementById('mobileThemeToggleCheckbox');
     const body = document.body;
     
-    // Check if user has previously set a theme preference
-    const savedTheme = localStorage.getItem('theme');
+    // Initialize theme based on saved preference
+    initTheme();
     
-    // Set initial theme based on saved preference
-    if (savedTheme === 'light') {
-        body.classList.add('light-mode');
-        desktopThemeToggle.checked = true;
-        mobileThemeToggle.checked = true;
+    // Add event listeners
+    setupEventListeners();
+    
+    // Handle responsive design
+    setupResponsiveToggle();
+    
+    /**
+     * Initializes theme based on user's saved preference
+     */
+    function initTheme() {
+        // Check if user has previously set a theme preference
+        const savedTheme = localStorage.getItem('theme');
+        
+        // Set initial theme based on saved preference
+        if (savedTheme === 'light') {
+            body.classList.add('light-mode');
+            desktopThemeToggle.checked = true;
+            mobileThemeToggle.checked = true;
+        }
     }
     
-    // Function to toggle theme
+    /**
+     * Sets up event listeners for theme toggles
+     */
+    function setupEventListeners() {
+        // Add event listeners to both toggle switches
+        desktopThemeToggle.addEventListener('change', toggleTheme);
+        mobileThemeToggle.addEventListener('change', toggleTheme);
+    }
+    
+    /**
+     * Toggles between light and dark themes
+     * Updates UI and saves preference to localStorage
+     */
     function toggleTheme() {
+        // Toggle the light-mode class on the body
         body.classList.toggle('light-mode');
         
         // Sync both toggle switches
@@ -26,13 +59,24 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
     }
     
-    // Add event listeners to both toggle switches
-    desktopThemeToggle.addEventListener('change', toggleTheme);
-    mobileThemeToggle.addEventListener('change', toggleTheme);
+    /**
+     * Sets up responsive behavior for theme toggles
+     * Shows/hides appropriate toggle based on screen size
+     */
+    function setupResponsiveToggle() {
+        const mediaQuery = window.matchMedia('(max-width: 768px)');
+        
+        // Initial call
+        handleScreenSizeChange(mediaQuery);
+        
+        // Add listener for screen size changes
+        mediaQuery.addEventListener('change', handleScreenSizeChange);
+    }
     
-    // Add media query for responsive design
-    const mediaQuery = window.matchMedia('(max-width: 768px)');
-    
+    /**
+     * Handles visibility of theme toggles based on screen size
+     * @param {MediaQueryListEvent} e - Media query event
+     */
     function handleScreenSizeChange(e) {
         const desktopToggleContainer = document.getElementById('desktopThemeToggle');
         
@@ -45,10 +89,4 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('.mobile-theme-toggle').style.display = 'none';
         }
     }
-    
-    // Initial call
-    handleScreenSizeChange(mediaQuery);
-    
-    // Add listener for screen size changes
-    mediaQuery.addEventListener('change', handleScreenSizeChange);
 });
