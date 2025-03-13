@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Chumo</title>
     <meta name="description" content="Network Security Engineer with expertise in infrastructure security, system administration, and network optimization. Interested in working together? Get in touch.">
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/particle-network.css">
+    <!-- jQuery (required for particle network animation) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- Favicon and App Icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
@@ -19,250 +24,258 @@
         <div class="glow glow-3"></div>
     </div>
 
-<nav>
-    <div class="logo">JC</div>
-    <div class="nav-links" id="navLinks">
-        <a href="#experience">Experience</a>
-        <a href="#skills">Skills</a>
-        <a href="#certifications">Certifications</a>
-        <a href="#contact">Contact</a>
-        <!-- Desktop theme toggle -->
-        <label class="theme-toggle" id="desktopThemeToggle">
-            <input type="checkbox" id="themeToggleCheckbox">
-            <span class="theme-toggle-slider"></span>
-        </label>
-        <!-- Move mobile theme toggle here https://uiverse.io/JkHuger/itchy-turtle-45 -->
-        <div class="mobile-theme-toggle">
-            <div class="theme-toggle-wrapper">
-                <span></span>
-                <label class="theme-toggle">
-                    <input type="checkbox" id="mobileThemeToggleCheckbox">
-                    <span class="theme-toggle-slider"></span>
-                </label>
-            </div>
-        </div>
-    </div>
-    <div class="hamburger-menu" id="hamburgerMenu">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-</nav>
-
-<section class="hero">
-    <h1>Job Chumo</h1>
-    <p class="subtitle">Network Security Engineer with expertise in infrastructure security, system administration, and network optimization.</p>
-    <div class="cta-buttons">
-        <a href="#contact" class="button">Get in touch</a>
-        <a href="/files/resume" class="button secondary">Download Resume</a>
-    </div>
-</section>
-
-<section id="experience">
-    <h2>Experience Timeline</h2>
-
-    <div class="timeline">
-        <div class="timeline-item timeline-item-right">
-            <div class="timeline-content">
-                <div class="timeline-date">Dec 2023 – Present</div>
-                <div class="timeline-title">African Guarantee Fund</div>
-                <div class="timeline-subtitle"><em>Network Security Engineer</em></div>
-                <div class="timeline-description">
-                    Managing and securing IT infrastructure by configuring bare metal servers, network equipment, and security systems while ensuring optimal performance, compliance, and rapid issue resolution.
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">JC</div>
+        <div class="nav-links" id="navLinks">
+            <a href="#experience">Experience</a>
+            <a href="#skills">Skills</a>
+            <a href="#certifications">Certifications</a>
+            <a href="#contact">Contact</a>
+            <!-- Desktop theme toggle -->
+            <label class="theme-toggle" id="desktopThemeToggle">
+                <input type="checkbox" id="themeToggleCheckbox">
+                <span class="theme-toggle-slider"></span>
+            </label>
+            <!-- Mobile theme toggle -->
+            <div class="mobile-theme-toggle">
+                <div class="theme-toggle-wrapper">
+                    <span></span>
+                    <label class="theme-toggle">
+                        <input type="checkbox" id="mobileThemeToggleCheckbox">
+                        <span class="theme-toggle-slider"></span>
+                    </label>
                 </div>
             </div>
         </div>
+        <!-- Hamburger Menu for Mobile -->
+        <div class="hamburger-menu" id="hamburgerMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
 
-        <div class="timeline-item timeline-item-left">
-            <div class="timeline-content">
-                <div class="timeline-date">Sep 2023 – Nov 2023</div>
-                <div class="timeline-title">UN Environment Programme</div>
-                <div class="timeline-subtitle"><em>Program Support</em></div>
-                <div class="timeline-description">
-                    Conducted research on wastewater trends, managed project documentation and partnerships, and facilitated system development to support environmental solutions.
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Job Chumo</h1>
+        <p class="subtitle">Network Security Engineer with expertise in infrastructure security, system administration, and network optimization.</p>
+        <div class="cta-buttons">
+            <a href="#contact" class="button">Get in touch</a>
+            <a href="/files/resume" class="button secondary">Download Resume</a>
+        </div>
+    </section>
+
+    <!-- Experience Timeline Section -->
+    <section id="experience">
+        <h2>Experience Timeline</h2>
+
+        <div class="timeline">
+            <div class="timeline-item timeline-item-right">
+                <div class="timeline-content">
+                    <div class="timeline-date">Dec 2023 – Present</div>
+                    <div class="timeline-title">African Guarantee Fund</div>
+                    <div class="timeline-subtitle"><em>Network Security Engineer</em></div>
+                    <div class="timeline-description">
+                        Managing and securing IT infrastructure by configuring bare metal servers, network equipment, and security systems while ensuring optimal performance, compliance, and rapid issue resolution.
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item timeline-item-left">
+                <div class="timeline-content">
+                    <div class="timeline-date">Sep 2023 – Nov 2023</div>
+                    <div class="timeline-title">UN Environment Programme</div>
+                    <div class="timeline-subtitle"><em>Program Support</em></div>
+                    <div class="timeline-description">
+                        Conducted research on wastewater trends, managed project documentation and partnerships, and facilitated system development to support environmental solutions.
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item timeline-item-right">
+                <div class="timeline-content">
+                    <div class="timeline-date">May 2022 – Oct 2022</div>
+                    <div class="timeline-title">Kenya Airways</div>
+                    <div class="timeline-subtitle"><em>IT Service Delivery Intern</em></div>
+                    <div class="timeline-description">
+                        Provided 24/7 IT support by resolving technical issues, training incoming employees, monitoring network performance, and coordinating rapid incident response to minimize downtime.
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item timeline-item-left">
+                <div class="timeline-content">
+                    <div class="timeline-date">2019 – 2022</div>
+                    <div class="timeline-title">Strathmore University</div>
+                    <div class="timeline-subtitle"><em>Bachelor of Science in Informatics and Computer Science</em></div>
+                    <div class="timeline-description">
+                        Completed coursework focused on network security, systems administration, and software development with honors.
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <div class="timeline-item timeline-item-right">
-            <div class="timeline-content">
-                <div class="timeline-date">May 2022 – Oct 2022</div>
-                <div class="timeline-title">Kenya Airways</div>
-                <div class="timeline-subtitle"><em>IT Service Delivery Intern</em></div>
-                <div class="timeline-description">
-                    Provided 24/7 IT support by resolving technical issues, training incoming employees, monitoring network performance, and coordinating rapid incident response to minimize downtime.
+    <!-- Skills Section -->
+    <section id="skills" class="fade-in">
+        <h2>Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3>Networking</h3>
+                <div class="skill-list">
+                    <span class="skill-tag">Cisco</span>
+                    <span class="skill-tag">Ubiquiti</span>
+                    <span class="skill-tag">VoIP Systems</span>
+                    <span class="skill-tag">DNS</span>
+                    <span class="skill-tag">DHCP</span>
+                    <span class="skill-tag">802.1x</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>Systems Administration</h3>
+                <div class="skill-list">
+                    <span class="skill-tag">Active Directory</span>
+                    <span class="skill-tag">Server Management</span>
+                    <span class="skill-tag">Proxmox</span>
+                    <span class="skill-tag">Hyper-V</span>
+                    <span class="skill-tag">Docker</span>
+                    <span class="skill-tag">Portainer</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>Security Tools</h3>
+                <div class="skill-list">
+                    <span class="skill-tag">Palo Alto</span>
+                    <span class="skill-tag">Wireshark</span>
+                    <span class="skill-tag">Burp Suite</span>
+                    <span class="skill-tag">OWASP ZAP</span>
+                    <span class="skill-tag">Tenable Nessus</span>
+                    <span class="skill-tag">Metasploit</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>Programming Languages</h3>
+                <div class="skill-list">
+                    <span class="skill-tag">Java</span>
+                    <span class="skill-tag">Kotlin</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">C++</span>
                 </div>
             </div>
         </div>
+    </section>
 
-        <div class="timeline-item timeline-item-left">
-            <div class="timeline-content">
-                <div class="timeline-date">2019 – 2022</div>
-                <div class="timeline-title">Strathmore University</div>
-                <div class="timeline-subtitle"><em>Bachelor of Science in Informatics and Computer Science</em></div>
-                <div class="timeline-description">
-                    Completed coursework focused on network security, systems administration, and software development with honors.
+    <!-- Certifications Section -->
+    <section id="certifications" class="fade-in">
+        <h2>Certifications</h2>
+
+        <div class="certification">
+            <div class="certification-org">ISC²</div>
+            <ul>
+                <li>CC – Certified in Cybersecurity (Issued June 2024)</li>
+                <li>SSCP - Systems Security Certified Practitioner (In Progress)</li>
+            </ul>
+        </div>
+
+        <div class="certification">
+            <div class="certification-org">Cisco</div>
+            <ul>
+                <li>CCNA: Enterprise Networking, Security and Automation (Issued Aug 2022)</li>
+                <li>CCNA: Switching, Routing and Wireless Essentials (Issued May 2022)</li>
+                <li>CCNA: Introduction to Networks (Issued Jan 2022)</li>
+            </ul>
+        </div>
+
+        <div class="certification">
+            <div class="certification-org">Amazon Web Services</div>
+            <ul>
+                <li>AWS Academy Graduate – AWS Academy Cloud Foundations (Issued Jan 2022)</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="fade-in">
+        <h2>Contact</h2>
+        <p class="subtitle">Interested in working together? Get in touch.</p>
+        <div class="contact-form-container">
+            <form id="form" class="contact-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="from_name">Full Name</label>
+                        <input type="text" id="from_name" name="from_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reply_to">Email</label>
+                        <input type="email" id="reply_to" name="reply_to" required>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<section id="skills" class="fade-in">
-    <h2>Technical Skills</h2>
-    <div class="skills-grid">
-        <div class="skill-category">
-            <h3>Networking</h3>
-            <div class="skill-list">
-                <span class="skill-tag">Cisco</span>
-                <span class="skill-tag">Ubiquiti</span>
-                <span class="skill-tag">VoIP Systems</span>
-                <span class="skill-tag">DNS</span>
-                <span class="skill-tag">DHCP</span>
-                <span class="skill-tag">802.1x</span>
-            </div>
-        </div>
-
-        <div class="skill-category">
-            <h3>Systems Administration</h3>
-            <div class="skill-list">
-                <span class="skill-tag">Active Directory</span>
-                <span class="skill-tag">Server Management</span>
-                <span class="skill-tag">Proxmox</span>
-                <span class="skill-tag">Hyper-V</span>
-                <span class="skill-tag">Docker</span>
-                <span class="skill-tag">Portainer</span>
-            </div>
-        </div>
-
-        <div class="skill-category">
-            <h3>Security Tools</h3>
-            <div class="skill-list">
-                <span class="skill-tag">Palo Alto</span>
-                <span class="skill-tag">Wireshark</span>
-                <span class="skill-tag">Burp Suite</span>
-                <span class="skill-tag">OWASP ZAP</span>
-                <span class="skill-tag">Tenable Nessus</span>
-                <span class="skill-tag">Metasploit</span>
-            </div>
-        </div>
-
-        <div class="skill-category">
-            <h3>Programming Languages</h3>
-            <div class="skill-list">
-                <span class="skill-tag">Java</span>
-                <span class="skill-tag">Kotlin</span>
-                <span class="skill-tag">Python</span>
-                <span class="skill-tag">C++</span>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="certifications" class="fade-in">
-    <h2>Certifications</h2>
-
-    <div class="certification">
-        <div class="certification-org">ISC²</div>
-        <ul>
-            <li>CC – Certified in Cybersecurity (Issued June 2024)</li>
-            <li>SSCP - Systems Security Certified Practitioner (In Progress)</li>
-        </ul>
-    </div>
-
-    <div class="certification">
-        <div class="certification-org">Cisco</div>
-        <ul>
-            <li>CCNA: Enterprise Networking, Security and Automation (Issued Aug 2022)</li>
-            <li>CCNA: Switching, Routing and Wireless Essentials (Issued May 2022)</li>
-            <li>CCNA: Introduction to Networks (Issued Jan 2022)</li>
-        </ul>
-    </div>
-
-    <div class="certification">
-        <div class="certification-org">Amazon Web Services</div>
-        <ul>
-            <li>AWS Academy Graduate – AWS Academy Cloud Foundations (Issued Jan 2022)</li>
-        </ul>
-    </div>
-</section>
-
-<section id="contact" class="fade-in">
-    <h2>Contact</h2>
-    <p class="subtitle">Interested in working together? Get in touch.</p>
-    <div class="contact-form-container">
-        <form id="form" class="contact-form">
-            <div class="form-row">
                 <div class="form-group">
-                    <label for="from_name">Full Name</label>
-                    <input type="text" id="from_name" name="from_name" required>
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
                 </div>
+                <input type="hidden" name="to_name" id="to_name" value="Job Chumo">
                 <div class="form-group">
-                    <label for="reply_to">Email</label>
-                    <input type="email" id="reply_to" name="reply_to" required>
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="subject">Subject</label>
-                <input type="text" id="subject" name="subject" required>
-            </div>
-            <input type="hidden" name="to_name" id="to_name" value="Job Chumo">
-            <div class="form-group">
-                <label for="message">Message</label>
-                <textarea id="message" name="message" rows="5" required></textarea>
-            </div>
-            <button type="submit" class="button" id="button">Send Message</button>
-        </form>
-    </div>
-
-    <div class="social-links">
-        <!--contact email section to be removed-->
-        <div>
-            <a href="https://github.com/jobchumo/" target="_blank" class="social-link">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.71-2.78.61-3.37-1.34-3.37-1.34-.45-1.15-1.1-1.46-1.1-1.46-.9-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.8c.85.004 1.71.11 2.51.32 1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.85-2.34 4.7-4.57 4.95.36.31.68.92.68 1.85 0 1.34-.01 2.42-.01 2.75 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12c0-5.52-4.48-10-10-10z"></path>
-                </svg>
-                GitHub
-            </a>
+                <button type="submit" class="button" id="button">Send Message</button>
+            </form>
         </div>
 
-        <div>
-            <a href="https://www.linkedin.com/in/jobchumo/" target="_blank" class="social-link">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                    <rect x="2" y="9" width="4" height="12"></rect>
-                    <circle cx="4" cy="4" r="2"></circle>
-                </svg>
-                LinkedIn
-            </a>
+        <!-- Social Links -->
+        <div class="social-links">
+            <div>
+                <a href="https://github.com/jobchumo/" target="_blank" class="social-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.71-2.78.61-3.37-1.34-3.37-1.34-.45-1.15-1.1-1.46-1.1-1.46-.9-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.8c.85.004 1.71.11 2.51.32 1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.85-2.34 4.7-4.57 4.95.36.31.68.92.68 1.85 0 1.34-.01 2.42-.01 2.75 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12c0-5.52-4.48-10-10-10z"></path>
+                    </svg>
+                    GitHub
+                </a>
+            </div>
+
+            <div>
+                <a href="https://www.linkedin.com/in/jobchumo/" target="_blank" class="social-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                    LinkedIn
+                </a>
+            </div>
+
+            <div>
+                <a href="https://tryhackme.com/p/parzivalcj" target="_blank" class="social-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L12 12V3"></path>
+                    </svg>
+                    TryHackMe
+                </a>
+            </div>
         </div>
+    </section>
 
-        <div>
-            <a href="https://tryhackme.com/p/parzivalcj" target="_blank" class="social-link">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L12 12V3"></path>
-                </svg>
-                TryHackMe
-            </a>
-        </div>
-    </div>
-</section>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Job Kipchirchir Chumo. All rights reserved.</p>
+    </footer>
 
-<footer>
-    <p>&copy; 2025 Job Kipchirchir Chumo. All rights reserved.</p>
-</footer>
-<!-- EmailJS SDK -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
-<!-- Initialize EmailJS -->
-<script type="text/javascript">
-    emailjs.init('CAyMa8HzgGlR8tsNb');
-</script>
-
-<script src="/js/main.js"></script>
-<script src="/js/networkAnimation.js"></script>
-<script src="/js/themeToggle.js"></script>
-<script src="js/email.js"></script>
+    <!-- Scripts -->
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <!-- Initialize EmailJS -->
+    <script type="text/javascript">
+        emailjs.init('CAyMa8HzgGlR8tsNb');
+    </script>
+    <!-- Custom Scripts -->
+    <script src="/js/main.js"></script>
+    <script src="/js/particle-network.js"></script>
+    <script src="/js/themeToggle.js"></script>
+    <script src="js/email.js"></script>
 </body>
 </html>
