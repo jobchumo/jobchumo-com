@@ -15,6 +15,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ===== iOS Theme Fix =====
     initIOSThemeFix();
+    
+    // ===== Android Fix =====
+    initAndroidFix();
 });
 
 /**
@@ -47,7 +50,7 @@ function initMobileNavigation() {
     document.addEventListener('click', function(event) {
         const isClickInsideNav = navLinks.contains(event.target);
         const isClickOnHamburger = hamburgerMenu.contains(event.target);
-        const isClickOnMobileTheme = mobileThemeToggle.contains(event.target);
+        const isClickOnMobileTheme = mobileThemeToggle && mobileThemeToggle.contains(event.target);
 
         if (!isClickInsideNav && !isClickOnHamburger && !isClickOnMobileTheme && navLinks.classList.contains('active')) {
             closeMobileMenu();
@@ -63,7 +66,16 @@ function initMobileNavigation() {
         body.classList.toggle('menu-open');
 
         // Show/hide mobile theme toggle
-        mobileThemeToggle.style.display = navLinks.classList.contains('active') ? 'block' : 'none';
+        if (mobileThemeToggle) {
+            mobileThemeToggle.style.display = navLinks.classList.contains('active') ? 'block' : 'none';
+        }
+        
+        // Force repaint on Android devices
+        if (/Android/.test(navigator.userAgent)) {
+            navLinks.style.display = 'none';
+            void navLinks.offsetHeight;
+            navLinks.style.display = '';
+        }
     }
 
     /**
@@ -73,7 +85,9 @@ function initMobileNavigation() {
         hamburgerMenu.classList.remove('active');
         navLinks.classList.remove('active');
         body.classList.remove('menu-open');
-        mobileThemeToggle.style.display = 'none';
+        if (mobileThemeToggle) {
+            mobileThemeToggle.style.display = 'none';
+        }
     }
 }
 
@@ -204,5 +218,66 @@ function initIOSThemeFix() {
                 element.style.display = originalDisplay;
             });
         });
+    }
+}
+
+/**
+ * Initializes fixes for Android devices
+ */
+function initAndroidFix() {
+    // Detect Android device
+    const isAndroid = /Android/.test(navigator.userAgent);
+    
+    if (isAndroid) {
+        // Fix for navigation bar on Android
+        const nav = document.querySelector('nav');
+        const navLinks = document.getElementById('navLinks');
+        
+        if (nav) {
+            // Ensure nav has proper background
+            nav.style.backgroundColor = document.body.classList.contains('light-mode') ? 
+                'var(--light-bg-color)' : 'var(--bg-color)';
+        }
+        
+        if (navLinks) {
+            // Ensure nav links have proper background
+            navLinks.style.backgroundColor = document.body.classList.contains('light-mode') ? 
+                'var(--light-bg-color)' : 'var(--bg-color)';
+            
+            // Ensure links are visible
+            const links = navLinks.querySelectorAll('a');
+            links.forEach(link => {
+                link.style.color = document.body.classList.contains('light-mode') ? 
+                    'var(--light-text-color)' : 'var(--text-color)';
+            });
+        }
+        
+        // Listen for theme changes
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.attributeName === 'class') {
+                    const isLightMode = document.body.classList.contains('light-mode');
+                    
+                    if (nav) {
+                        nav.style.backgroundColor = isLightMode ? 
+                            'var(--light-bg-color)' : 'var(--bg-color)';
+                    }
+                    
+                    if (navLinks) {
+                        navLinks.style.backgroundColor = isLightMode ? 
+                            'var(--light-bg-color)' : 'var(--bg-color)';
+                        
+                        const links = navLinks.querySelectorAll('a');
+                        links.forEach(link => {
+                            link.style.color = isLightMode ? 
+                                'var(--light-text-color)' : 'var(--text-color)';
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Start observing the body for class changes
+        observer.observe(document.body, { attributes: true });
     }
 }

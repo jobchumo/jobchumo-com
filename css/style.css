@@ -226,7 +226,7 @@ nav {
     padding: var(--spacing) 0;
     border-bottom: 1px solid var(--secondary-color);
     position: relative;
-    z-index: 10;
+    z-index: 100;
     background-color: transparent;
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
@@ -245,14 +245,14 @@ nav::before {
     right: -100vw;
     bottom: 0;
     background-color: var(--bg-color);
-    opacity: 0.8;
+    opacity: 0.95; /* Increase opacity for better visibility */
     z-index: -1;
     transition: background-color 0.3s ease, opacity 0.3s ease;
 }
 
 .light-mode nav::before {
     background-color: var(--light-bg-color);
-    opacity: 0.8;
+    opacity: 0.95; /* Increase opacity for better visibility */
 }
 
 .logo {
@@ -700,6 +700,8 @@ footer {
     /* Mobile Navigation */
     .hamburger-menu {
         display: flex;
+        position: relative;
+        z-index: 101; /* Ensure it's above the nav menu */
     }
 
     .nav-links {
@@ -713,14 +715,15 @@ footer {
         justify-content: center;
         align-items: center;
         transition: right 0.3s ease, background-color 0.3s ease;
-        z-index: 9;
+        z-index: 100; /* Match nav z-index */
         padding: 2rem;
         box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
         backdrop-filter: blur(5px); /* Add blur effect for better readability */
+        opacity: 0.98; /* Increase opacity for better visibility */
     }
 
     .light-mode .nav-links {
-        background-color: rgba(245, 245, 245, 0.85); /* Semi-transparent light background */
+        background-color: rgba(245, 245, 245, 0.95); /* More opaque light background */
         border-left: 1px solid var(--light-border-color);
         box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
     }
@@ -732,6 +735,11 @@ footer {
     .nav-links a {
         margin: 1.5rem 0;
         font-size: 1.2rem;
+        color: var(--text-color); /* Explicitly set color */
+    }
+
+    .light-mode .nav-links a {
+        color: var(--light-text-color); /* Explicitly set color for light mode */
     }
 
     .theme-toggle {
