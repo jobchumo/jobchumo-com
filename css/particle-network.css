@@ -6,6 +6,7 @@
 	height: 100vh;
 	background-color: var(--bg-color);
 	z-index: -1;
+	opacity: 0.6;
 }
 
 .glow {
@@ -13,11 +14,12 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  background-image: radial-gradient(circle closest-side, rgba(49, 130, 206, 0.05), transparent);
+  background-image: radial-gradient(circle closest-side, rgba(49, 130, 206, 0.02), transparent);
+  opacity: 0.5;
 }
 
 .light-mode .glow {
-  background-image: radial-gradient(circle closest-side, rgba(37, 99, 235, 0.05), transparent);
+  background-image: radial-gradient(circle closest-side, rgba(37, 99, 235, 0.02), transparent);
 }
 
 .glow-1 {
@@ -25,7 +27,7 @@
   height: 150vh;
   margin-top: -75vh;
   margin-left: -75vw;
-  animation: glow-1-move 25s linear infinite both;
+  animation: glow-1-move 35s linear infinite both;
 }
 
 @keyframes glow-1-move {
@@ -42,7 +44,7 @@
   height: 100vh;
   margin-top: -50vh;
   margin-left: -50vw;
-  animation: glow-2-move 25s linear 8.33s infinite both;
+  animation: glow-2-move 35s linear 11.66s infinite both;
 }
 
 @keyframes glow-2-move {
@@ -59,7 +61,7 @@
   height: 120vh;
   margin-top: -60vh;
   margin-left: -60vw;
-  animation: glow-3-move 25s linear 16.66s infinite both;
+  animation: glow-3-move 35s linear 23.33s infinite both;
 }
 
 @keyframes glow-3-move {

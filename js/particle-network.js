@@ -37,21 +37,23 @@
 		this.canvas = parent.canvas;
 		this.ctx = parent.ctx;
 		this.particleColor = returnRandomArrayitem(this.network.options.particleColors);
-		this.radius = getLimitedRandom(1.5, 2.5);
+		// Smaller particles
+		this.radius = getLimitedRandom(0.8, 1.5);
+		// Start with lower opacity
 		this.opacity = 0;
 		this.x = x || Math.random() * this.canvas.width;
 		this.y = y || Math.random() * this.canvas.height;
 		this.velocity = {
-			x: (Math.random() - 0.5) * parent.options.velocity,
-			y: (Math.random() - 0.5) * parent.options.velocity
+			x: (Math.random() - 0.5) * parent.options.velocity * 0.7, // Slower movement
+			y: (Math.random() - 0.5) * parent.options.velocity * 0.7  // Slower movement
 		};
 	};
 
 	Particle.prototype.update = function() {
-		if (this.opacity < 1) {
-			this.opacity += 0.01;
+		if (this.opacity < 0.5) { // Lower max opacity
+			this.opacity += 0.005; // Slower fade in
 		} else {
-			this.opacity = 1;
+			this.opacity = 0.5; // Lower max opacity
 		}
 		// Change dir if outside map
 		if (this.x > this.canvas.width + 100 || this.x < -100) {
@@ -82,12 +84,35 @@
 			getComputedStyle(document.documentElement).getPropertyValue('--light-accent-color').trim() : 
 			getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim();
 		
+		// Create a more transparent version of the accent color
+		const getTransparentColor = (color) => {
+			// If it's a hex color, convert to rgba
+			if (color.startsWith('#')) {
+				const r = parseInt(color.slice(1, 3), 16);
+				const g = parseInt(color.slice(3, 5), 16);
+				const b = parseInt(color.slice(5, 7), 16);
+				return `rgba(${r}, ${g}, ${b}, 0.4)`; // Lower opacity
+			}
+			// If it's already rgba, just lower the opacity
+			return color.replace(/rgba?\(([^)]+)\)/, (_, p1) => {
+				const parts = p1.split(',');
+				if (parts.length >= 4) {
+					parts[3] = '0.4'; // Set opacity to 0.4
+				} else {
+					parts.push('0.4'); // Add opacity of 0.4
+				}
+				return `rgba(${parts.join(',')})`;
+			});
+		};
+		
+		const transparentAccentColor = getTransparentColor(accentColor || (isLightMode ? '#2563eb' : '#3182ce'));
+		
 		this.options = {
-			velocity: 1, // the higher the faster
-			density: 15000, // the lower the denser
-			netLineDistance: 200,
-			netLineColor: accentColor || '#3182ce',
-			particleColors: [accentColor || '#3182ce'] // Use accent color from CSS
+			velocity: 0.7, // Slower velocity
+			density: 25000, // Less dense (higher number = fewer particles)
+			netLineDistance: 150, // Shorter connection distance
+			netLineColor: transparentAccentColor,
+			particleColors: [transparentAccentColor] // Use transparent accent color
 		};
 		this.canvas = parent.canvas;
 		this.ctx = parent.ctx;
@@ -182,8 +207,9 @@
 
 					this.ctx.beginPath();
 					this.ctx.strokeStyle = this.options.netLineColor;
-					this.ctx.globalAlpha = (this.options.netLineDistance - distance) / this.options.netLineDistance * p1.opacity * p2.opacity;
-					this.ctx.lineWidth = 0.7;
+					// Lower line opacity
+					this.ctx.globalAlpha = (this.options.netLineDistance - distance) / this.options.netLineDistance * p1.opacity * p2.opacity * 0.6;
+					this.ctx.lineWidth = 0.5; // Thinner lines
 					this.ctx.moveTo(p1.x, p1.y);
 					this.ctx.lineTo(p2.x, p2.y);
 					this.ctx.stroke();
@@ -208,7 +234,7 @@
 
 	ParticleNetwork.prototype.bindUiActions = function() {
 		// Mouse / touch event handling
-		this.spawnQuantity = 3;
+		this.spawnQuantity = 2; // Fewer particles on interaction
 		this.mouseIsDown = false;
 		this.touchIsMoving = false;
 
@@ -325,9 +351,32 @@
 					getComputedStyle(document.documentElement).getPropertyValue('--light-accent-color').trim() : 
 					getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim();
 				
+				// Create a more transparent version of the accent color
+				const getTransparentColor = (color) => {
+					// If it's a hex color, convert to rgba
+					if (color.startsWith('#')) {
+						const r = parseInt(color.slice(1, 3), 16);
+						const g = parseInt(color.slice(3, 5), 16);
+						const b = parseInt(color.slice(5, 7), 16);
+						return `rgba(${r}, ${g}, ${b}, 0.4)`; // Lower opacity
+					}
+					// If it's already rgba, just lower the opacity
+					return color.replace(/rgba?\(([^)]+)\)/, (_, p1) => {
+						const parts = p1.split(',');
+						if (parts.length >= 4) {
+							parts[3] = '0.4'; // Set opacity to 0.4
+						} else {
+							parts.push('0.4'); // Add opacity of 0.4
+						}
+						return `rgba(${parts.join(',')})`;
+					});
+				};
+				
+				const transparentAccentColor = getTransparentColor(accentColor || (isLightMode ? '#2563eb' : '#3182ce'));
+				
 				// Update colors based on theme
-				pna.particleNetwork.options.netLineColor = accentColor || (isLightMode ? '#2563eb' : '#3182ce');
-				pna.particleNetwork.options.particleColors = [accentColor || (isLightMode ? '#2563eb' : '#3182ce')];
+				pna.particleNetwork.options.netLineColor = transparentAccentColor;
+				pna.particleNetwork.options.particleColors = [transparentAccentColor];
 			}
 		}
 		
