@@ -227,8 +227,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // Apply appropriate styling based on theme
         if (isLightMode) {
             nodeElement.style.backgroundColor = 'var(--light-node-color)';
+            nodeElement.style.opacity = '0.9'; // Increase visibility in light mode
+            nodeElement.style.boxShadow = '0 0 3px var(--light-node-color)'; // Add glow effect
         } else {
             nodeElement.style.backgroundColor = '#ffffff';
+            nodeElement.style.opacity = '0.8';
+            nodeElement.style.boxShadow = 'none';
         }
     }
     
@@ -246,8 +250,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Apply appropriate styling based on theme
         if (isLightMode) {
             connectionElement.style.backgroundColor = 'var(--light-connection-color)';
+            connectionElement.style.opacity = '0.7'; // Increase visibility in light mode
         } else {
             connectionElement.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+            connectionElement.style.opacity = '0.5';
         }
     }
 });

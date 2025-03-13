@@ -164,9 +164,33 @@ function initIOSThemeFix() {
             '.timeline-item',
             '.skill-tag',
             '.contact-form',
-            '.social-links'
+            '.social-links',
+            'nav'
         ];
         
+        // First ensure network background is visible
+        const networkBg = document.getElementById('networkBackground');
+        if (networkBg) {
+            networkBg.style.zIndex = '-1';
+            
+            // Force a more aggressive repaint on the network elements
+            const nodes = document.querySelectorAll('.node');
+            const connections = document.querySelectorAll('.connection');
+            
+            // Temporarily hide and show network elements
+            [nodes, connections].forEach(elements => {
+                elements.forEach(el => {
+                    const originalOpacity = el.style.opacity || '';
+                    el.style.opacity = '0';
+                    void el.offsetHeight;
+                    setTimeout(() => {
+                        el.style.opacity = originalOpacity;
+                    }, 50);
+                });
+            });
+        }
+        
+        // Then repaint other elements
         elementsToRepaint.forEach(selector => {
             const elements = document.querySelectorAll(selector);
             elements.forEach(element => {

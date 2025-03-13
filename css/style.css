@@ -227,11 +227,32 @@ nav {
     border-bottom: 1px solid var(--secondary-color);
     position: relative;
     z-index: 10;
+    background-color: transparent;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .light-mode nav {
     border-bottom: 1px solid var(--light-border-color);
+    background-color: transparent;
+}
+
+/* Add a semi-transparent backdrop for better text readability if needed */
+nav::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100vw; /* Extend beyond the container */
+    right: -100vw;
+    bottom: 0;
+    background-color: var(--bg-color);
+    opacity: 0.8;
+    z-index: -1;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.light-mode nav::before {
     background-color: var(--light-bg-color);
+    opacity: 0.8;
 }
 
 .logo {
@@ -361,6 +382,7 @@ footer {
     border-radius: 50%;
     background-color: #ffffff;
     transition: background-color 0.3s ease;
+    opacity: 0.8; /* Slightly increase visibility */
 }
 
 .connection {
@@ -368,15 +390,17 @@ footer {
     height: 1px;
     background-color: rgba(255, 255, 255, 0.2);
     transform-origin: left center;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
 }
 
 .light-mode .node {
     background-color: var(--light-node-color);
+    opacity: 0.9; /* Increase visibility in light mode */
 }
 
 .light-mode .connection {
     background-color: var(--light-connection-color);
+    opacity: 0.7; /* Increase visibility in light mode */
 }
 
 /* ===== Timeline Styles ===== */
@@ -688,10 +712,17 @@ footer {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        transition: right 0.3s ease;
+        transition: right 0.3s ease, background-color 0.3s ease;
         z-index: 9;
         padding: 2rem;
         box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px); /* Add blur effect for better readability */
+    }
+
+    .light-mode .nav-links {
+        background-color: rgba(245, 245, 245, 0.85); /* Semi-transparent light background */
+        border-left: 1px solid var(--light-border-color);
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
     }
 
     .nav-links.active {
