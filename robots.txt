@@ -1,5 +1,3 @@
 User-agent: *
 Disallow: /files/*
-Disallow: /css/*
 Disallow: /functions/*
-Disallow: /js/*

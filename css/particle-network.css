@@ -1,3 +1,4 @@
+/* Main container for the particle network animation */
 .particle-network-animation {
 	position: fixed;
 	top: 0;
@@ -12,84 +13,116 @@
 	overflow: hidden;
 }
 
+/* Glow effect base styles */
 .glow {
-  z-index: -4;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  background-image: radial-gradient(circle closest-side, rgba(49, 130, 206, 0.08), transparent);
-  opacity: 0.8;
-  pointer-events: none;
+	z-index: -4;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	background-image: radial-gradient(circle closest-side, rgba(49, 130, 206, 0.08), transparent);
+	opacity: 0.8;
+	pointer-events: none;
+	will-change: transform; /* Optimize animations */
 }
 
+/* Light mode glow adjustments */
 .light-mode .glow {
-  background-image: radial-gradient(circle closest-side, rgba(37, 99, 235, 0.08), transparent);
+	background-image: radial-gradient(circle closest-side, rgba(37, 99, 235, 0.08), transparent);
 }
 
+/* First glow element */
 .glow-1 {
-  width: 150vw;
-  height: 150vh;
-  margin-top: -75vh;
-  margin-left: -75vw;
-  animation: glow-1-move 35s linear infinite both;
+	width: 150vw;
+	height: 150vh;
+	margin-top: -75vh;
+	margin-left: -75vw;
+	animation: glow-1-move 35s linear infinite both;
 }
 
+/* Animation for first glow */
 @keyframes glow-1-move {
-  from {
-    transform: translate(-100%, 100%);
-  }
-  to {
-    transform: translate(100%, -100%);
-  }
+	from {
+		transform: translate(-100%, 100%);
+	}
+	to {
+		transform: translate(100%, -100%);
+	}
 }
 
+/* Second glow element */
 .glow-2 {
-  width: 100vw;
-  height: 100vh;
-  margin-top: -50vh;
-  margin-left: -50vw;
-  animation: glow-2-move 35s linear 11.66s infinite both;
+	width: 100vw;
+	height: 100vh;
+	margin-top: -50vh;
+	margin-left: -50vw;
+	animation: glow-2-move 35s linear 11.66s infinite both;
 }
 
+/* Animation for second glow */
 @keyframes glow-2-move {
-  from {
-    transform: translate(-100%, 0%);
-  }
-  to {
-    transform: translate(100%, 100%);
-  }
+	from {
+		transform: translate(-100%, 0%);
+	}
+	to {
+		transform: translate(100%, 100%);
+	}
 }
 
+/* Third glow element */
 .glow-3 {
-  width: 120vw;
-  height: 120vh;
-  margin-top: -60vh;
-  margin-left: -60vw;
-  animation: glow-3-move 35s linear 23.33s infinite both;
+	width: 120vw;
+	height: 120vh;
+	margin-top: -60vh;
+	margin-left: -60vw;
+	animation: glow-3-move 35s linear 23.33s infinite both;
 }
 
+/* Animation for third glow */
 @keyframes glow-3-move {
-  from {
-    transform: translate(100%, 100%);
-  }
-  to {
-    transform: translate(0%, -100%);
-  }
+	from {
+		transform: translate(100%, 100%);
+	}
+	to {
+		transform: translate(0%, -100%);
+	}
 }
 
-/* Light mode adjustments */
+/* Light mode background adjustments */
 body.light-mode .particle-network-animation {
-  background-color: var(--light-bg-color);
+	background-color: var(--light-bg-color);
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .particle-network-animation {
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
+	.particle-network-animation {
+		height: 100%;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+	
+	/* Adjust glow sizes for mobile */
+	.glow-1 {
+		width: 200vw;
+		height: 200vh;
+		margin-top: -100vh;
+		margin-left: -100vw;
+	}
+	
+	.glow-2, .glow-3 {
+		width: 150vw;
+		height: 150vh;
+		margin-top: -75vh;
+		margin-left: -75vw;
+	}
+}
+
+/* Performance optimizations for low-end devices */
+@media (prefers-reduced-motion: reduce) {
+	.glow {
+		animation: none !important;
+		opacity: 0.5;
+	}
 } 

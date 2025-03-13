@@ -1,15 +1,10 @@
-/**
- * Theme Toggle Functionality
- * Handles switching between light and dark themes with user preference persistence
- */
-
 document.addEventListener('DOMContentLoaded', function() {
     // DOM Elements
     const desktopThemeToggle = document.getElementById('themeToggleCheckbox');
     const mobileThemeToggle = document.getElementById('mobileThemeToggleCheckbox');
     const body = document.body;
     
-    // Initialize theme based on saved preference
+    // Initialize theme based on saved preference or system preference
     initTheme();
     
     // Add event listeners
@@ -19,14 +14,27 @@ document.addEventListener('DOMContentLoaded', function() {
     setupResponsiveToggle();
     
     /**
-     * Initializes theme based on user's saved preference
+     * Initializes theme based on user's saved preference or system preference
      */
     function initTheme() {
         // Check if user has previously set a theme preference
         const savedTheme = localStorage.getItem('theme');
         
+        // Check system preference if no saved theme
+        if (!savedTheme) {
+            const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (!prefersDarkMode) {
+                body.classList.add('light-mode');
+                desktopThemeToggle.checked = true;
+                mobileThemeToggle.checked = true;
+                updateNetworkAnimationTheme(true);
+                localStorage.setItem('theme', 'light');
+            } else {
+                localStorage.setItem('theme', 'dark');
+            }
+        } 
         // Set initial theme based on saved preference
-        if (savedTheme === 'light') {
+        else if (savedTheme === 'light') {
             body.classList.add('light-mode');
             desktopThemeToggle.checked = true;
             mobileThemeToggle.checked = true;
@@ -41,6 +49,18 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add event listeners to both toggle switches
         desktopThemeToggle.addEventListener('change', toggleTheme);
         mobileThemeToggle.addEventListener('change', toggleTheme);
+        
+        // Listen for system preference changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+            // Only apply if user hasn't set a preference
+            if (!localStorage.getItem('theme')) {
+                const isLightMode = !e.matches;
+                body.classList.toggle('light-mode', isLightMode);
+                desktopThemeToggle.checked = isLightMode;
+                mobileThemeToggle.checked = isLightMode;
+                updateNetworkAnimationTheme(isLightMode);
+            }
+        });
     }
     
     /**
@@ -59,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Update network animation theme
         updateNetworkAnimationTheme(isLightMode);
         
-        // Force repaint on iOS devices to ensure all elements update
+        // Force repaint on devices to ensure all elements update
         forceRepaint();
         
         // Save preference to localStorage
@@ -82,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (isLightMode) {
                 node.style.backgroundColor = 'var(--light-node-color)';
             } else {
-                node.style.backgroundColor = '#ffffff';
+                node.style.backgroundColor = 'var(--node-color)';
             }
         });
         
@@ -92,32 +112,68 @@ document.addEventListener('DOMContentLoaded', function() {
             if (isLightMode) {
                 connection.style.backgroundColor = 'var(--light-connection-color)';
             } else {
-                connection.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+                connection.style.backgroundColor = 'var(--connection-color)';
             }
         });
+        
+        // Update particle network animation background
+        const particleNetwork = document.querySelector('.particle-network-animation');
+        if (particleNetwork) {
+            particleNetwork.style.backgroundColor = isLightMode ? 
+                'var(--light-bg-color)' : 'var(--bg-color)';
+        }
     }
     
     /**
-     * Forces a repaint on iOS devices to ensure theme changes apply uniformly
+     * Forces a repaint on devices to ensure theme changes apply uniformly
      */
     function forceRepaint() {
-        // This technique forces a repaint by temporarily modifying a property
-        const sections = document.querySelectorAll('section');
-        sections.forEach(section => {
-            const originalDisplay = section.style.display;
-            section.style.display = 'none';
-            // Force reflow
-            void section.offsetHeight;
-            section.style.display = originalDisplay;
+        // Elements that need repainting
+        const elements = [
+            document.querySelectorAll('section'),
+            document.querySelectorAll('nav'),
+            document.querySelectorAll('.nav-links'),
+            document.querySelectorAll('.button'),
+            document.querySelectorAll('.theme-toggle'),
+            document.querySelectorAll('.theme-toggle-slider'),
+            document.querySelectorAll('.hamburger-menu'),
+            document.querySelectorAll('.hamburger-menu span'),
+            document.querySelectorAll('.timeline-item'),
+            document.querySelectorAll('.skill-tag'),
+            document.querySelectorAll('.particle-network-animation'),
+            document.querySelectorAll('.glow')
+        ];
+        
+        // Flatten array and remove duplicates
+        const allElements = [...new Set(elements.flat())];
+        
+        // Force repaint by temporarily modifying a property
+        allElements.forEach(element => {
+            if (element) {
+                const originalDisplay = element.style.display;
+                element.style.display = 'none';
+                // Force reflow
+                void element.offsetHeight;
+                element.style.display = originalDisplay;
+            }
         });
         
-        // Also force repaint on the network background
-        const networkBg = document.getElementById('networkBackground');
-        if (networkBg) {
-            const originalDisplay = networkBg.style.display;
-            networkBg.style.display = 'none';
-            void networkBg.offsetHeight;
-            networkBg.style.display = originalDisplay;
+        // Special handling for mobile navigation
+        const navLinks = document.getElementById('navLinks');
+        if (navLinks) {
+            // Preserve active state
+            const wasActive = navLinks.classList.contains('active');
+            
+            // Force repaint
+            navLinks.style.transition = 'none';
+            void navLinks.offsetHeight;
+            navLinks.style.transition = 'right 0.3s var(--menu-transition-timing)';
+            
+            // Ensure proper styling based on active state
+            if (wasActive) {
+                navLinks.style.right = '0';
+                navLinks.style.display = 'flex';
+            }
         }
     }
     
@@ -141,14 +197,24 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     function handleScreenSizeChange(e) {
         const desktopToggleContainer = document.getElementById('desktopThemeToggle');
+        const mobileToggleContainer = document.querySelector('.mobile-theme-toggle');
         
         if (e.matches) {
-            // On mobile, hide desktop toggle
-            desktopToggleContainer.style.display = 'none';
+            // On mobile, hide desktop toggle and show mobile toggle
+            if (desktopToggleContainer) desktopToggleContainer.style.display = 'none';
+            if (mobileToggleContainer) {
+                mobileToggleContainer.style.display = 'block';
+                // Only show if menu is active
+                if (document.getElementById('navLinks').classList.contains('active')) {
+                    mobileToggleContainer.style.display = 'block';
+                } else {
+                    mobileToggleContainer.style.display = 'none';
+                }
+            }
         } else {
             // On desktop, show desktop toggle and hide mobile toggle
-            desktopToggleContainer.style.display = 'block';
-            document.querySelector('.mobile-theme-toggle').style.display = 'none';
+            if (desktopToggleContainer) desktopToggleContainer.style.display = 'block';
+            if (mobileToggleContainer) mobileToggleContainer.style.display = 'none';
         }
     }
 });

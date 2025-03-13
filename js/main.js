@@ -1,8 +1,3 @@
-/**
- * Main JavaScript file for Job Chumo's portfolio website
- * Handles mobile navigation, animations, and UI interactions
- */
-
 document.addEventListener('DOMContentLoaded', function() {
     // ===== Mobile Navigation Functionality =====
     initMobileNavigation();
@@ -13,10 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // ===== Scroll Animations =====
     initScrollAnimations();
     
-    // ===== iOS Theme Fix =====
+    // ===== Platform-specific Fixes =====
     initIOSThemeFix();
-    
-    // ===== Android Fix =====
     initAndroidFix();
     
     // ===== Force Mobile Nav Visibility =====
@@ -46,6 +39,16 @@ function initMobileNavigation() {
     links.forEach(link => {
         link.addEventListener('click', function() {
             closeMobileMenu();
+            
+            // Smooth scroll to section
+            const href = this.getAttribute('href');
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                const targetSection = document.querySelector(href);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
         });
     });
 
@@ -83,6 +86,18 @@ function initMobileNavigation() {
                     'var(--light-text-color)' : 'var(--text-color)';
                 link.style.opacity = '1';
             });
+            
+            // Add animation to links
+            links.forEach((link, index) => {
+                link.style.animation = `fadeIn 0.3s ease forwards ${0.1 + index * 0.1}s`;
+                link.style.opacity = '0';
+                link.style.transform = 'translateY(10px)';
+            });
+        } else {
+            // Reset animations when closing
+            links.forEach(link => {
+                link.style.animation = '';
+            });
         }
 
         // Show/hide mobile theme toggle
@@ -105,280 +120,236 @@ function initMobileNavigation() {
         hamburgerMenu.classList.remove('active');
         navLinks.classList.remove('active');
         body.classList.remove('menu-open');
-        if (mobileThemeToggle) {
-            mobileThemeToggle.style.display = 'none';
-        }
+        
+        // Reset animations
+        links.forEach(link => {
+            link.style.animation = '';
+        });
     }
 }
 
 /**
- * Initializes timeline animation with sequential delays
+ * Initializes timeline animation
+ * Adds fade-in effect to timeline items
  */
 function initTimelineAnimation() {
     const timelineItems = document.querySelectorAll('.timeline-item');
-    let delay = 0;
     
-    timelineItems.forEach(item => {
-        setTimeout(() => {
-            item.style.animationDelay = `${delay}ms`;
-            item.style.animationPlayState = 'running';
-        }, delay);
-        delay += 300; // Increment delay for each item
+    timelineItems.forEach((item, index) => {
+        // Add staggered animation delay
+        item.style.animationDelay = `${index * 0.2}s`;
+        
+        // Add animation class
+        item.classList.add('fade-in');
     });
 }
 
 /**
- * Initializes scroll-based animations using Intersection Observer
+ * Initializes scroll animations
+ * Adds fade-in effect to elements as they enter the viewport
  */
 function initScrollAnimations() {
     const fadeElements = document.querySelectorAll('.fade-in');
     
-    // Create an observer instance
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+    // Initial check for elements in viewport
+    checkFadeElements();
+    
+    // Check elements on scroll
+    window.addEventListener('scroll', checkFadeElements);
+    
+    /**
+     * Checks if fade elements are in viewport and adds visible class
+     */
+    function checkFadeElements() {
+        const triggerBottom = window.innerHeight * 0.8;
+        
+        fadeElements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            
+            if (elementTop < triggerBottom) {
+                element.classList.add('visible');
             }
         });
-    }, {
-        threshold: 0.1 // Trigger when at least 10% of the element is visible
-    });
-    
-    // Start observing each fade element
-    fadeElements.forEach(element => {
-        observer.observe(element);
-    });
+    }
 }
 
 /**
- * Initializes fixes for iOS theme switching issues
- * Adds event listeners to handle iOS-specific theme rendering problems
+ * Initializes iOS-specific theme fixes
+ * Addresses rendering issues on iOS devices
  */
 function initIOSThemeFix() {
-    // Detect iOS device
+    // Check if device is iOS
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     
     if (isIOS) {
-        // Add event listener for theme changes
-        document.addEventListener('themeChanged', function() {
-            // Force repaint on iOS by temporarily changing a CSS property
-            document.body.style.display = 'none';
-            // Force reflow
-            void document.body.offsetHeight;
-            document.body.style.display = '';
-            
-            // Force repaint on specific elements that might not update properly
+        // Listen for theme changes
+        document.addEventListener('themeChanged', function(e) {
+            // Force repaint of elements
             forceElementsRepaint();
         });
         
-        // Also listen for class changes on body as a fallback
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                if (mutation.attributeName === 'class' && 
-                    (mutation.target.classList.contains('light-mode') || 
-                     !mutation.target.classList.contains('light-mode'))) {
-                    forceElementsRepaint();
-                }
-            });
-        });
-        
-        // Start observing the body for class changes
-        observer.observe(document.body, { attributes: true });
+        // Initial repaint
+        forceElementsRepaint();
     }
     
     /**
-     * Forces a repaint on specific elements that might not update properly on iOS
+     * Forces a repaint of elements to fix iOS rendering issues
      */
     function forceElementsRepaint() {
-        const elementsToRepaint = [
-            '.network-bg',
-            '.node',
-            '.connection',
-            'section',
-            '.timeline-item',
-            '.skill-tag',
-            '.contact-form',
-            '.social-links',
-            'nav'
+        // Elements that need repainting
+        const elements = [
+            document.querySelectorAll('nav'),
+            document.querySelectorAll('.nav-links'),
+            document.querySelectorAll('.timeline-item'),
+            document.querySelectorAll('.timeline-content'),
+            document.querySelectorAll('.skill-tag'),
+            document.querySelectorAll('.button'),
+            document.querySelectorAll('.theme-toggle'),
+            document.querySelectorAll('.theme-toggle-slider'),
+            document.querySelectorAll('.hamburger-menu'),
+            document.querySelectorAll('.hamburger-menu span')
         ];
         
-        // First ensure network background is visible
-        const networkBg = document.getElementById('networkBackground');
-        if (networkBg) {
-            networkBg.style.zIndex = '-1';
-            
-            // Force a more aggressive repaint on the network elements
-            const nodes = document.querySelectorAll('.node');
-            const connections = document.querySelectorAll('.connection');
-            
-            // Temporarily hide and show network elements
-            [nodes, connections].forEach(elements => {
-                elements.forEach(el => {
-                    const originalOpacity = el.style.opacity || '';
-                    el.style.opacity = '0';
-                    void el.offsetHeight;
-                    setTimeout(() => {
-                        el.style.opacity = originalOpacity;
-                    }, 50);
-                });
-            });
-        }
+        // Flatten array and remove duplicates
+        const allElements = [...new Set(elements.flat())];
         
-        // Then repaint other elements
-        elementsToRepaint.forEach(selector => {
-            const elements = document.querySelectorAll(selector);
-            elements.forEach(element => {
-                // Save original display value
-                const originalDisplay = window.getComputedStyle(element).display;
-                // Force repaint by temporarily changing display
-                element.style.display = 'none';
-                // Force reflow
-                void element.offsetHeight;
-                // Restore original display
-                element.style.display = originalDisplay;
-            });
+        // Force repaint by temporarily changing display
+        allElements.forEach(el => {
+            if (el) {
+                const originalDisplay = el.style.display;
+                el.style.display = 'none';
+                void el.offsetHeight; // Force reflow
+                el.style.display = originalDisplay;
+            }
         });
+        
+        // Additional fix for nav links
+        const navLinks = document.getElementById('navLinks');
+        if (navLinks) {
+            navLinks.style.transition = 'none';
+            void navLinks.offsetHeight; // Force reflow
+            navLinks.style.transition = '';
+        }
     }
 }
 
 /**
- * Initializes fixes for Android devices
+ * Initializes Android-specific fixes
+ * Addresses rendering issues on Android devices
  */
 function initAndroidFix() {
-    // Detect Android device
+    // Check if device is Android
     const isAndroid = /Android/.test(navigator.userAgent);
     
     if (isAndroid) {
-        // Fix for navigation bar on Android
-        const nav = document.querySelector('nav');
+        // Fix for hamburger menu
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
         const navLinks = document.getElementById('navLinks');
         
-        if (nav) {
-            // Ensure nav has proper background
-            nav.style.backgroundColor = document.body.classList.contains('light-mode') ? 
-                'var(--light-bg-color)' : 'var(--bg-color)';
-        }
-        
-        if (navLinks) {
-            // Ensure nav links have proper background
-            navLinks.style.backgroundColor = document.body.classList.contains('light-mode') ? 
-                'var(--light-bg-color)' : 'var(--bg-color)';
+        if (hamburgerMenu && navLinks) {
+            // Apply hardware acceleration
+            hamburgerMenu.style.transform = 'translateZ(0)';
+            navLinks.style.transform = 'translateZ(0)';
             
-            // Ensure links are visible
-            const links = navLinks.querySelectorAll('a');
-            links.forEach(link => {
-                link.style.color = document.body.classList.contains('light-mode') ? 
-                    'var(--light-text-color)' : 'var(--text-color)';
+            // Fix for menu toggle
+            hamburgerMenu.addEventListener('click', function() {
+                // Force repaint
+                navLinks.style.display = 'none';
+                void navLinks.offsetHeight;
+                navLinks.style.display = navLinks.classList.contains('active') ? 'flex' : 'none';
             });
         }
         
-        // Listen for theme changes
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                if (mutation.attributeName === 'class') {
-                    const isLightMode = document.body.classList.contains('light-mode');
-                    
-                    if (nav) {
-                        nav.style.backgroundColor = isLightMode ? 
-                            'var(--light-bg-color)' : 'var(--bg-color)';
-                    }
-                    
-                    if (navLinks) {
-                        navLinks.style.backgroundColor = isLightMode ? 
-                            'var(--light-bg-color)' : 'var(--bg-color)';
-                        
-                        const links = navLinks.querySelectorAll('a');
-                        links.forEach(link => {
-                            link.style.color = isLightMode ? 
-                                'var(--light-text-color)' : 'var(--text-color)';
-                        });
-                    }
-                }
-            });
+        // Fix for theme toggle
+        const themeToggles = document.querySelectorAll('.theme-toggle');
+        themeToggles.forEach(toggle => {
+            toggle.style.transform = 'translateZ(0)';
         });
         
-        // Start observing the body for class changes
-        observer.observe(document.body, { attributes: true });
+        // Listen for theme changes
+        document.addEventListener('themeChanged', function() {
+            // Force repaint
+            document.body.style.display = 'none';
+            void document.body.offsetHeight;
+            document.body.style.display = '';
+        });
     }
 }
 
 /**
- * Force mobile navigation visibility on problematic devices
+ * Forces mobile navigation visibility
+ * Ensures mobile menu is visible and properly styled
  */
 function forceMobileNavVisibility() {
-    // Apply this fix for all mobile devices
-    if (window.innerWidth <= 768) {
-        const navLinks = document.getElementById('navLinks');
-        const hamburgerMenu = document.getElementById('hamburgerMenu');
+    const navLinks = document.getElementById('navLinks');
+    const hamburgerMenu = document.getElementById('hamburgerMenu');
+    
+    if (!navLinks || !hamburgerMenu) return;
+    
+    // Check if mobile view
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    
+    if (isMobile) {
+        // Ensure hamburger is visible
+        hamburgerMenu.style.display = 'flex';
         
-        if (navLinks && hamburgerMenu) {
-            // Ensure hamburger menu is visible
-            hamburgerMenu.style.display = 'flex';
-            hamburgerMenu.style.opacity = '1';
-            hamburgerMenu.style.zIndex = '101';
-            hamburgerMenu.style.width = '24px';
-            hamburgerMenu.style.height = '18px';
-            hamburgerMenu.style.cursor = 'pointer';
+        // Reset nav links styles
+        navLinks.style.position = 'fixed';
+        navLinks.style.top = '0';
+        navLinks.style.right = navLinks.classList.contains('active') ? '0' : '-100%';
+        navLinks.style.width = '100%';
+        navLinks.style.height = '100vh';
+        navLinks.style.backgroundColor = document.body.classList.contains('light-mode') ? 
+            'var(--light-bg-color)' : 'var(--bg-color)';
+        navLinks.style.flexDirection = 'column';
+        navLinks.style.alignItems = 'flex-start';
+        navLinks.style.padding = '5rem 2rem 2rem';
+        navLinks.style.transition = 'right 0.3s var(--menu-transition-timing)';
+        navLinks.style.zIndex = '99';
+        
+        // Style links
+        const links = navLinks.querySelectorAll('a');
+        links.forEach(link => {
+            link.style.fontSize = '1.2rem';
+            link.style.width = '100%';
+            link.style.padding = '0.75rem 0';
+            link.style.borderBottom = document.body.classList.contains('light-mode') ? 
+                '1px solid rgba(0, 0, 0, 0.1)' : '1px solid rgba(255, 255, 255, 0.1)';
+        });
+        
+        // Fix for hamburger menu
+        hamburgerMenu.addEventListener('click', function forceToggle(e) {
+            e.stopPropagation();
             
-            // Make hamburger lines more visible
-            const hamburgerLines = hamburgerMenu.querySelectorAll('span');
-            hamburgerLines.forEach(line => {
-                line.style.backgroundColor = document.body.classList.contains('light-mode') ? 
-                    'var(--light-text-color)' : 'var(--text-color)';
-                line.style.height = '2px';
-                line.style.width = '100%';
-                line.style.opacity = '1';
-            });
+            // Toggle active class
+            hamburgerMenu.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
             
-            // Ensure nav links are properly styled when inactive
-            if (!navLinks.classList.contains('active')) {
-                navLinks.style.right = '-100%';
+            // Update styles
+            navLinks.style.right = navLinks.classList.contains('active') ? '0' : '-100%';
+            
+            // Force visibility when active
+            if (navLinks.classList.contains('active')) {
                 navLinks.style.display = 'flex';
-                navLinks.style.flexDirection = 'column';
-                navLinks.style.opacity = '1';
-                navLinks.style.zIndex = '100';
-                navLinks.style.width = '80%';
-            }
-            
-            // Style the links to be more visible
-            const links = navLinks.querySelectorAll('a');
-            links.forEach(link => {
-                link.style.fontSize = '1.5rem';
-                link.style.display = 'block';
-                link.style.width = '100%';
-                link.style.textAlign = 'center';
-                link.style.margin = '1.5rem 0';
-                link.style.color = document.body.classList.contains('light-mode') ? 
-                    'var(--light-text-color)' : 'var(--text-color)';
-                link.style.opacity = '1';
-            });
-            
-            // Add click event with timeout to ensure it works
-            setTimeout(() => {
-                hamburgerMenu.addEventListener('click', function forceToggle(e) {
-                    e.stopPropagation(); // Prevent event bubbling
-                    
-                    // This is a backup in case the main toggle doesn't work
-                    if (!navLinks.classList.contains('active')) {
-                        navLinks.classList.add('active');
-                        navLinks.style.right = '0';
-                        navLinks.style.display = 'flex';
-                        hamburgerMenu.classList.add('active');
-                    } else {
-                        navLinks.classList.remove('active');
-                        navLinks.style.right = '-100%';
-                        hamburgerMenu.classList.remove('active');
-                    }
+                
+                // Ensure links are visible
+                links.forEach(link => {
+                    link.style.opacity = '1';
+                    link.style.color = document.body.classList.contains('light-mode') ? 
+                        'var(--light-text-color)' : 'var(--text-color)';
                 });
-            }, 500);
-            
-            // Force a check on page load
-            setTimeout(() => {
-                // If the menu is supposed to be active but isn't showing correctly
-                if (navLinks.classList.contains('active') && navLinks.style.right !== '0') {
-                    navLinks.style.right = '0';
-                }
-            }, 1000);
-        }
+            }
+        }, { once: false });
     }
+    
+    // Listen for window resize
+    window.addEventListener('resize', function() {
+        const isMobileNow = window.matchMedia('(max-width: 768px)').matches;
+        
+        if (isMobileNow !== isMobile) {
+            // Refresh page to reset styles
+            location.reload();
+        }
+    });
 }
