@@ -7,6 +7,9 @@
     <meta name="description" content="Network Security Engineer with expertise in infrastructure security, system administration, and network optimization. Interested in working together? Get in touch.">
     <!-- Stylesheets -->
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/particle-network.css">
+    <!-- jQuery (required for particle network animation) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <!-- Favicon and App Icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
@@ -15,7 +18,11 @@
 </head>
 <body>
     <!-- Network Animation Background -->
-    <div class="network-bg" id="networkBackground"></div>
+    <div class="particle-network-animation">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+        <div class="glow glow-3"></div>
+    </div>
 
     <!-- Navigation Bar -->
     <nav>
@@ -267,7 +274,7 @@
     </script>
     <!-- Custom Scripts -->
     <script src="/js/main.js"></script>
-    <script src="/js/networkAnimation.js"></script>
+    <script src="/js/particle-network.js"></script>
     <script src="/js/themeToggle.js"></script>
     <script src="js/email.js"></script>
 </body>
