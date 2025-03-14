@@ -1,10 +1,19 @@
 :root {
-    /* Dark mode variables */
+    /* Dark mode (default) variables */
     --bg-color: #0a0a0a;
     --text-color: #f5f5f5;
     --accent-color: #3182ce;
     --secondary-color: #2c2c2c;
     --spacing: 2rem;
+
+    /* Light mode variables */
+    --light-bg-color: #f5f5f5;
+    --light-text-color: #0a0a0a;
+    --light-accent-color: #2563eb;
+    --light-secondary-color: #d0d0d0;
+    --light-border-color: #c0c0c0;
+    --light-node-color: #0066ff;
+    --light-connection-color: #003366;
 }
 
 /* ===== Base Styles ===== */
@@ -22,6 +31,12 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 var(--spacing);
+    position: relative;
+    overflow-x: hidden;
+}
+
+body.menu-open {
+    overflow: hidden;
 }
 
 a {
@@ -33,6 +48,7 @@ a {
 a:hover {
     color: var(--accent-color);
 }
+
 
 /* ===== Typography ===== */
 h1 {
@@ -53,6 +69,7 @@ h2 {
     margin-bottom: 2rem;
     max-width: 600px;
 }
+
 
 /* ===== Button Styles ===== */
 .button {
@@ -79,6 +96,7 @@ h2 {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
+
 .cta-buttons {
     display: flex;
     gap: 1rem;
@@ -94,6 +112,22 @@ nav {
     border-bottom: 1px solid var(--secondary-color);
     position: relative;
     z-index: 10;
+    background-color: transparent;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Add a semi-transparent backdrop for better text readability if needed */
+nav::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100vw; /* Extend beyond the container */
+    right: -100vw;
+    bottom: 0;
+    background-color: var(--bg-color);
+    opacity: 0.8;
+    z-index: -1;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
 }
 
 .logo {
@@ -101,14 +135,10 @@ nav {
     font-weight: 700;
 }
 
+
 .nav-links {
     display: flex;
     gap: 2rem;
-}
-
-/* Hamburger Menu Styles */
-.hamburger-menu {
-    display: none;
 }
 
 /* ===== Layout Components ===== */
@@ -136,6 +166,7 @@ footer {
     position: relative;
     z-index: 1;
 }
+
 
 /* ===== Timeline Styles ===== */
 .timeline {
@@ -233,6 +264,7 @@ footer {
     margin-bottom: 1rem;
 }
 
+
 .timeline-description {
     font-size: 0.95rem;
     line-height: 1.5;
@@ -278,6 +310,29 @@ footer {
     margin-bottom: 0.5rem;
 }
 
+/* ===== Animation Effects ===== */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* ===== Contact Form Styles ===== */
 .contact-form-container {
     max-width: 600px;
@@ -288,6 +343,20 @@ footer {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+    background-color: rgba(44, 44, 44, 0.8);
+    border: 1px solid var(--secondary-color);
+    color: var(--text-color);
+}
+
+.light-mode .contact-form input,
+.light-mode .contact-form textarea {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--light-secondary-color);
+    color: var(--light-text-color);
 }
 
 .form-row {
@@ -354,27 +423,4 @@ footer {
 
 .social-link:hover {
     transform: translateY(-2px);
-}
-
-/* Animation Effects */
-.fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
