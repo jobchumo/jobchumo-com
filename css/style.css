@@ -27,6 +27,11 @@ body {
 a {
     color: var(--text-color);
     text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--accent-color);
 }
 
 /* ===== Typography ===== */
@@ -58,6 +63,7 @@ h2 {
     border-radius: 4px;
     font-weight: 600;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .button:hover {
@@ -86,6 +92,8 @@ nav {
     align-items: center;
     padding: var(--spacing) 0;
     border-bottom: 1px solid var(--secondary-color);
+    position: relative;
+    z-index: 10;
 }
 
 .logo {
@@ -107,6 +115,8 @@ nav {
 section {
     padding: var(--spacing) 0;
     border-bottom: 1px solid var(--secondary-color);
+    position: relative;
+    z-index: 1;
 }
 
 .hero {
@@ -149,6 +159,8 @@ footer {
     padding: 10px 40px;
     position: relative;
     width: 50%;
+    animation: fadeIn 0.5s ease-in-out forwards;
+    opacity: 0;
 }
 
 .timeline-item-left {
@@ -342,4 +354,27 @@ footer {
 
 .social-link:hover {
     transform: translateY(-2px);
+}
+
+/* Animation Effects */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
