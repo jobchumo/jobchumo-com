@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .popup {
                 padding: 15px 20px;
                 border-radius: 6px;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
                 display: flex;
                 align-items: flex-start;
                 gap: 12px;
@@ -75,24 +75,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 animation: slideIn ${CONFIG.notification.animationDuration}ms ease forwards;
                 position: relative;
                 overflow: hidden;
+                background-color: var(--secondary-color);
+                border: 1px solid var(--accent-color);
             }
             
             .popup.success {
-                background-color: #ebf7ed;
+                background-color: rgba(52, 199, 89, 0.1);
                 border-left: 4px solid #34c759;
-                color: #1e7a34;
+                color: #34c759;
             }
             
             .popup.error {
-                background-color: #fdf2f2;
+                background-color: rgba(229, 62, 62, 0.1);
                 border-left: 4px solid #e53e3e;
-                color: #c81e1e;
+                color: #e53e3e;
             }
             
             .popup.info {
-                background-color: #ebf5fa;
-                border-left: 4px solid #3498db;
-                color: #2073b0;
+                background-color: rgba(49, 130, 206, 0.1);
+                border-left: 4px solid var(--accent-color);
+                color: var(--accent-color);
             }
             
             .popup-icon {
@@ -118,6 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 font-size: 14px;
                 line-height: 1.4;
                 margin: 0;
+                opacity: 0.9;
             }
             
             .popup-close {
@@ -144,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 bottom: 0;
                 left: 0;
                 height: 3px;
-                background-color: rgba(0, 0, 0, 0.1);
+                background-color: rgba(0, 0, 0, 0.2);
                 width: 100%;
             }
             
@@ -164,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             .popup.info .popup-progress-bar {
-                background-color: #3498db;
+                background-color: var(--accent-color);
             }
             
             @keyframes slideIn {
@@ -347,6 +350,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 break;
                 
+            case 'subject':
+                if (value.length < 3) {
+                    field.classList.add('error');
+                    errorElement.textContent = 'Subject must be at least 3 characters';
+                    return false;
+                }
+                break;
+                
             case 'message':
                 if (value.length < CONFIG.validation.minMessageLength) {
                     field.classList.add('error');
@@ -372,9 +383,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Create error message element
             const errorElement = document.createElement('div');
             errorElement.className = 'error-message';
-            errorElement.style.color = '#e53e3e';
-            errorElement.style.fontSize = '0.8rem';
-            errorElement.style.marginTop = '0.25rem';
             field.parentNode.appendChild(errorElement);
             
             // Store field and error element
@@ -385,10 +393,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 validateField(field, errorElement);
             });
             
-            // Clear error on input
+            // Add validation on input
             field.addEventListener('input', () => {
-                field.classList.remove('error');
-                errorElement.textContent = '';
+                validateField(field, errorElement);
+            });
+            
+            // Add validation on form submission
+            field.addEventListener('invalid', (e) => {
+                e.preventDefault();
+                validateField(field, errorElement);
             });
         });
         
@@ -455,6 +468,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Reset form
                 event.target.reset();
+                
+                // Clear error states
+                Object.values(formFields).forEach(({ field, errorElement }) => {
+                    field.classList.remove('error');
+                    errorElement.textContent = '';
+                });
             })
             .catch(error => {
                 // Show error notification

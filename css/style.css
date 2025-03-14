@@ -395,6 +395,19 @@ footer {
     outline: none;
 }
 
+.form-group input.error,
+.form-group textarea.error {
+    border-color: #e53e3e;
+    background-color: rgba(229, 62, 62, 0.1);
+}
+
+.error-message {
+    color: #e53e3e;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
 .form-group input::placeholder,
 .form-group textarea::placeholder {
     color: rgba(255, 255, 255, 0.5);
