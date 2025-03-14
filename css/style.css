@@ -190,8 +190,15 @@ footer {
     padding: 10px 40px;
     position: relative;
     width: 50%;
-    animation: fadeIn 0.5s ease-in-out forwards;
     opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease-out;
+    will-change: transform, opacity;
+}
+
+.timeline-item.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .timeline-item-left {
@@ -291,6 +298,8 @@ footer {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    opacity: 0;
+    animation: fadeIn 0.4s ease-out forwards;
 }
 
 .skill-tag {
@@ -298,6 +307,9 @@ footer {
     padding: 0.5rem 1rem;
     border-radius: 4px;
     font-size: 0.9rem;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeIn 0.3s ease-out forwards;
 }
 
 /* ===== Certifications ===== */
@@ -325,7 +337,7 @@ footer {
 @keyframes fadeIn {
     0% {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(15px);
     }
     100% {
         opacity: 1;
