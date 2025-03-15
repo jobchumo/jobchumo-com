@@ -137,7 +137,6 @@ nav {
 
 .light-mode nav {
     border-bottom: 1px solid var(--light-border-color);
-    background-color: var(--light-bg-color);
 }
 
 /* Add a semi-transparent backdrop for better text readability if needed */
