@@ -78,6 +78,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 background-color: var(--secondary-color);
             }
             
+            .light-mode .popup {
+                background-color: var(--light-secondary-color)
+            }
+            
             .popup.success {
                 border-left: 4px solid var(--accent-color);
             }
@@ -111,11 +115,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 font-size: 16px;
             }
             
+            .light-mode .popup-title {
+                color: var(--light-text-color);
+            }
+            
             .popup-message {
                 font-size: 14px;
                 line-height: 1.4;
                 margin: 0;
                 opacity: 0.9;
+            }
+            
+            .light-mode .popup-message {
+                color: var(--light-text-color);
             }
             
             .popup-close {

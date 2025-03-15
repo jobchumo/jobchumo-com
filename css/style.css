@@ -36,6 +36,11 @@ body {
     overflow-x: hidden;
 }
 
+body.light-mode {
+    background-color: var(--light-bg-color);
+    color: var(--light-text-color);
+}
+
 body.menu-open {
     overflow: hidden;
 }
@@ -48,6 +53,14 @@ a {
 
 a:hover {
     color: var(--accent-color);
+}
+
+.light-mode a {
+    color: var(--light-text-color);
+}
+
+.light-mode a:hover {
+    color: var(--light-accent-color);
 }
 
 /* ===== TYPOGRAPHY ===== */
@@ -70,12 +83,20 @@ h2 {
     max-width: 600px;
 }
 
+.light-mode .subtitle {
+    color: rgba(10, 10, 10, 0.7);
+}
+
 /* ===== LAYOUT COMPONENTS ===== */
 section {
     padding: var(--spacing) 0;
     border-bottom: 1px solid var(--secondary-color);
     position: relative;
     z-index: 1;
+}
+
+.light-mode section {
+    border-bottom: 1px solid var(--light-secondary-color);
 }
 
 .hero {
@@ -106,7 +127,11 @@ nav {
     position: relative;
     z-index: 10;
     background-color: transparent;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.light-mode nav {
+    border-bottom: 1px solid var(--light-border-color);
+    background-color: var(--light-bg-color);
 }
 
 /* Add a semi-transparent backdrop for better text readability if needed */
@@ -120,7 +145,10 @@ nav::before {
     background-color: var(--bg-color);
     opacity: 0.8;
     z-index: -1;
-    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.light-mode nav::before {
+    background-color: var(--light-bg-color);
 }
 
 .logo {
@@ -128,9 +156,117 @@ nav::before {
     font-weight: 700;
 }
 
+.light-mode .logo {
+    color: var(--light-text-color);
+}
+
 .nav-links {
     display: flex;
     gap: 2rem;
+    align-items: center;
+}
+
+.light-mode .nav-links {
+    background-color: var(--light-bg-color);
+}
+
+/* Theme Toggle Styles */
+.theme-toggle-container {
+    margin-left: 0.1rem;
+    display: flex;
+    align-items: center;
+}
+
+.themeToggle {
+    color: var(--text-color);
+    width: 1.8em; /* Reduced from 3em to 1.8em to match nav text */
+    height: 1.8em; /* Added height to maintain aspect ratio */
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.light-mode .themeToggle {
+    color: var(--light-text-color);
+}
+  
+.st-sunMoonThemeToggleBtn {
+    position: relative;
+    cursor: pointer;
+}
+  
+.st-sunMoonThemeToggleBtn .themeToggleInput {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    cursor: pointer;
+    z-index: 2;
+    margin: 0;
+}
+  
+.st-sunMoonThemeToggleBtn svg {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.4s ease;
+    transform: rotate(40deg);
+}
+  
+.st-sunMoonThemeToggleBtn svg .sunMoon {
+    transform-origin: center center;
+    transition: inherit;
+    transform: scale(1);
+}
+  
+.st-sunMoonThemeToggleBtn svg .sunRay {
+    transform-origin: center center;
+    transform: scale(0);
+}
+  
+.st-sunMoonThemeToggleBtn svg mask > circle {
+    transition: transform 0.64s cubic-bezier(0.41, 0.64, 0.32, 1.575);
+    transform: translate(0px, 0px);
+}
+  
+.st-sunMoonThemeToggleBtn svg .sunRay2 {
+    animation-delay: 0.05s !important;
+}
+.st-sunMoonThemeToggleBtn svg .sunRay3 {
+    animation-delay: 0.1s !important;
+}
+.st-sunMoonThemeToggleBtn svg .sunRay4 {
+    animation-delay: 0.17s !important;
+}
+.st-sunMoonThemeToggleBtn svg .sunRay5 {
+    animation-delay: 0.25s !important;
+}
+.st-sunMoonThemeToggleBtn svg .sunRay6 {
+    animation-delay: 0.29s !important;
+}
+  
+.st-sunMoonThemeToggleBtn .themeToggleInput:checked + svg {
+    transform: rotate(90deg);
+}
+.st-sunMoonThemeToggleBtn .themeToggleInput:checked + svg mask > circle {
+    transform: translate(16px, -3px);
+}
+.st-sunMoonThemeToggleBtn .themeToggleInput:checked + svg .sunMoon {
+    transform: scale(0.55);
+}
+.st-sunMoonThemeToggleBtn .themeToggleInput:checked + svg .sunRay {
+    animation: showRay1832 0.4s ease 0s 1 forwards;
+}
+  
+@keyframes showRay1832 {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 /* ===== BUTTONS ===== */
@@ -145,7 +281,15 @@ nav::before {
     transition: background-color 0.3s ease;
 }
 
+.light-mode .button {
+    background-color: var(--light-accent-color);
+}
+
 .button:hover {
+    background-color: #2c5282;
+}
+
+.light-mode .button:hover {
     background-color: #2c5282;
 }
 
@@ -154,8 +298,18 @@ nav::before {
     border: 1px solid var(--text-color);
 }
 
+.light-mode .button.secondary {
+    background-color: transparent;
+    border: 1px solid var(--light-text-color);
+    color: var(--light-text-color);
+}
+
 .button.secondary:hover {
     background-color: rgba(255, 255, 255, 0.1);
+}
+
+.light-mode .button.secondary:hover {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .cta-buttons {
@@ -219,6 +373,11 @@ nav::before {
     z-index: 1;
 }
 
+.light-mode .timeline-item::after {
+    background-color: var(--light-bg-color);
+    border: 3px solid var(--light-accent-color);
+}
+
 .timeline-item-left::after {
     right: -13px;
 }
@@ -235,6 +394,11 @@ nav::before {
     border-radius: 6px;
 }
 
+.light-mode .timeline-content {
+    background-color: var(--light-secondary-color);
+    color: var(--light-text-color);
+}
+
 .timeline-content::after {
     content: '';
     position: absolute;
@@ -248,9 +412,17 @@ nav::before {
     right: 100%;
 }
 
+.light-mode .timeline-item-left .timeline-content::after {
+    border-color: transparent var(--light-secondary-color) transparent transparent;
+}
+
 .timeline-item-right .timeline-content::after {
     border-color: transparent transparent transparent var(--secondary-color);
     left: 100%;
+}
+
+.light-mode .timeline-item-right .timeline-content::after {
+    border-color: transparent transparent transparent var(--light-secondary-color);
 }
 
 /* Timeline text elements */
@@ -269,6 +441,10 @@ nav::before {
 .timeline-subtitle {
     color: rgba(255, 255, 255, 0.7);
     margin-bottom: 1rem;
+}
+
+.light-mode .timeline-subtitle {
+    color: rgba(10, 10, 10, 0.7);
 }
 
 .timeline-description {
@@ -311,6 +487,10 @@ nav::before {
     animation: fadeIn 0.3s ease-out forwards;
 }
 
+.light-mode .skill-tag {
+    background-color: var(--light-secondary-color);
+}
+
 /* ===== CERTIFICATIONS ===== */
 .certification {
     margin-bottom: 2rem;
@@ -348,6 +528,10 @@ nav::before {
     color: var(--light-text-color);
 }
 
+.light-mode .contact-form ::placeholder {
+    color: rgba(10, 10, 10, 0.6);
+}
+
 /* Form layout */
 .form-row {
     display: flex;
@@ -365,6 +549,10 @@ nav::before {
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--text-color);
+}
+
+.light-mode .form-group label {
+    color: var(--light-text-color);
 }
 
 .form-group input,
