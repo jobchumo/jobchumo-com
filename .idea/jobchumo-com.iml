@@ -10,5 +10,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="jobchumo-com-worker" />
     <orderEntry type="library" name="@emailjs/browser" level="application" />
+    <orderEntry type="library" name="jquery-3.7.1" level="application" />
   </component>
 </module>

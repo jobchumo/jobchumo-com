@@ -17,6 +17,8 @@
     <link rel="manifest" href="assets/site.webmanifest">
 </head>
 <body>
+<!-- Network Animation Background -->
+<div class="particle-network-animation"></div>
 
 <nav>
     <div class="logo">JC</div>
@@ -26,7 +28,7 @@
         <a href="#certifications">Certifications</a>
         <a href="#contact">Contact</a>
         <div class="theme-toggle-container">
-            <label for="themeToggle" class="themeToggle st-sunMoonThemeToggleBtn" type="checkbox">
+            <label for="themeToggle" class="themeToggle st-sunMoonThemeToggleBtn">
                 <input type="checkbox" id="themeToggle" class="themeToggleInput" />
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" stroke="none">
                     <mask id="moon-mask">
@@ -48,6 +50,7 @@
     </div>
 </nav>
 
+<!-- Hero Section -->
 <section class="hero">
     <h1>Job Chumo</h1>
     <p class="subtitle">Network Security Engineer with expertise in infrastructure security, system administration, and network optimization.</p>
@@ -57,7 +60,8 @@
     </div>
 </section>
 
-<section id="experience" class="fade-in">
+<!-- Experience Timeline Section -->
+<section id="experience">
     <h2>Experience Timeline</h2>
 
     <div class="timeline">
@@ -107,7 +111,7 @@
     </div>
 </section>
 
-
+<!-- Skills Section -->
 <section id="skills" class="fade-in">
     <h2>Technical Skills</h2>
     <div class="skills-grid">
@@ -159,6 +163,7 @@
     </div>
 </section>
 
+<!-- Certifications Section -->
 <section id="certifications" class="fade-in">
     <h2>Certifications</h2>
 
@@ -187,9 +192,10 @@
     </div>
 </section>
 
+<!-- Contact Section -->
 <section id="contact" class="fade-in">
     <h2>Contact</h2>
-    <p>Interested in working together? Get in touch.</p>
+    <p class="subtitle">Interested in working together? Get in touch.</p>
     <div class="contact-form-container">
         <form id="form" class="contact-form">
             <div class="form-row">
@@ -215,8 +221,8 @@
         </form>
     </div>
 
+    <!-- Social Links -->
     <div class="social-links">
-        <!--contact email section to be removed-->
         <div>
             <a href="https://github.com/jobchumo/" target="_blank" class="social-link">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -248,18 +254,24 @@
     </div>
 </section>
 
+<!-- Footer -->
 <footer>
     <p>&copy; 2025 Job Kipchirchir Chumo. All rights reserved.</p>
 </footer>
+
+<!-- Scripts -->
 <!-- EmailJS SDK -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
 <!-- Initialize EmailJS -->
 <script type="text/javascript">
     emailjs.init('CAyMa8HzgGlR8tsNb');
 </script>
-
-<script src="/js/main.js"></script>
+<!-- Custom Scripts -->
+<script type="module" src="js/main.js"></script>
+<script src="js/particle-network.js"></script>
+<script src="js/themeToggle.js"></script>
 <script src="js/email.js"></script>
+<!-- jQuery (required for particle network animation) -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </body>
 </html>
