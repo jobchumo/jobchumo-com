@@ -76,19 +76,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 position: relative;
                 overflow: hidden;
                 background-color: var(--secondary-color);
-                border: 1px solid var(--accent-color);
             }
             
             .popup.success {
-                background-color: rgba(52, 199, 89, 0.1);
-                border-left: 4px solid #34c759;
-                color: #34c759;
+                border-left: 4px solid var(--accent-color);
             }
             
             .popup.error {
-                background-color: rgba(229, 62, 62, 0.1);
                 border-left: 4px solid #e53e3e;
-                color: #e53e3e;
             }
             
             .popup.info {
@@ -159,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             .popup.success .popup-progress-bar {
-                background-color: #34c759;
+                background-color: var(--accent-color);
             }
             
             .popup.error .popup-progress-bar {
