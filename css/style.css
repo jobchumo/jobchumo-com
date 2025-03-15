@@ -135,11 +135,12 @@ nav::before {
     font-weight: 700;
 }
 
-
 .nav-links {
     display: flex;
     gap: 2rem;
 }
+
+
 
 /* ===== Layout Components ===== */
 section {

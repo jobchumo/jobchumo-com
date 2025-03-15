@@ -1,9 +1,14 @@
 ---
 description: 
 globs: 
+alwaysApply: false
+---
+---
+description: 
+globs: 
 alwaysApply: true
 ---
-- DO NOT Change the website layout
+- DO NOT Change the website layout except when explicitly stated
 - DO NOT change the website themes and colors
 - Any new visual element additions should conform with the current theme and style
 - Overall functionality of the website should be preserved. Nothing should break after changes have been made
