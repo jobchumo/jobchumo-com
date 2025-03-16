@@ -183,6 +183,7 @@ body.light-mode .particle-network-animation {
     margin-left: 0.1rem;
     display: flex;
     align-items: center;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .themeToggle {
