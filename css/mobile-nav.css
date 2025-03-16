@@ -66,11 +66,13 @@
   right: 20px;
   z-index: 1001; /* Above the overlay */
   display: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Theme toggle in mobile nav */
 .mobile-theme-toggle {
   margin-top: 10px;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .mobile-theme-toggle .themeToggle svg {
