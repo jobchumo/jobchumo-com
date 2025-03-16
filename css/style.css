@@ -59,11 +59,11 @@ a:hover {
     color: var(--accent-color);
 }
 
-.light-mode a {
+body.light-mode a {
     color: var(--light-text-color);
 }
 
-.light-mode a:hover {
+body.light-mode a:hover {
     color: var(--light-accent-color);
 }
 
@@ -87,7 +87,7 @@ h2 {
     max-width: 600px;
 }
 
-.light-mode .subtitle {
+body.light-mode .subtitle {
     color: rgba(10, 10, 10, 0.7);
 }
 
@@ -100,7 +100,7 @@ section {
     z-index: 1;
 }
 
-.light-mode section {
+body.light-mode section {
     border-bottom: 1px solid var(--light-secondary-color);
 }
 
@@ -122,7 +122,7 @@ footer {
     z-index: 1;
 }
 
-.light-mode footer {
+body.light-mode footer {
     color: var(--light-text-color);
 }
 
@@ -138,7 +138,7 @@ nav {
     background-color: transparent;
 }
 
-.light-mode nav {
+body.light-mode nav {
     border-bottom: 1px solid var(--light-border-color);
 }
 
@@ -147,7 +147,7 @@ nav {
     font-weight: 700;
 }
 
-.light-mode .logo {
+body.light-mode .logo {
     color: var(--light-text-color);
 }
 
@@ -157,7 +157,7 @@ nav {
     align-items: center;
 }
 
-.light-mode .nav-links {
+body.light-mode .nav-links {
     background-color: var(--light-bg-color);
 }
 
@@ -198,7 +198,7 @@ body.light-mode .particle-network-animation {
     justify-content: center;
 }
 
-.light-mode .themeToggle {
+body.light-mode .themeToggle {
     color: var(--light-text-color);
 }
   
@@ -295,7 +295,7 @@ body.light-mode .particle-network-animation {
     transition: background-color 0.3s ease;
 }
 
-.light-mode .button {
+body.light-mode .button {
     background-color: var(--light-accent-color);
 }
 
@@ -303,7 +303,7 @@ body.light-mode .particle-network-animation {
     background-color: #2c5282;
 }
 
-.light-mode .button:hover {
+body.light-mode .button:hover {
     background-color: #2c5282;
 }
 
@@ -313,7 +313,7 @@ body.light-mode .particle-network-animation {
     border: 1px solid var(--text-color);
 }
 
-.light-mode .button.secondary {
+body.light-mode .button.secondary {
     background-color: transparent;
     border: 1px solid var(--light-text-color);
     color: var(--light-text-color);
@@ -323,7 +323,7 @@ body.light-mode .particle-network-animation {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-.light-mode .button.secondary:hover {
+body.light-mode .button.secondary:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -390,7 +390,7 @@ body.light-mode .particle-network-animation {
     z-index: 1;
 }
 
-.light-mode .timeline-item::after {
+body.light-mode .timeline-item::after {
     background-color: var(--light-bg-color);
     border: 3px solid var(--light-accent-color);
 }
@@ -411,7 +411,7 @@ body.light-mode .particle-network-animation {
     border-radius: 6px;
 }
 
-.light-mode .timeline-content {
+body.light-mode .timeline-content {
     background-color: var(--light-secondary-color);
     color: var(--light-text-color);
 }
@@ -430,7 +430,7 @@ body.light-mode .particle-network-animation {
     right: 100%;
 }
 
-.light-mode .timeline-item-left .timeline-content::after {
+body.light-mode .timeline-item-left .timeline-content::after {
     border-color: transparent var(--light-secondary-color) transparent transparent;
 }
 
@@ -439,7 +439,7 @@ body.light-mode .particle-network-animation {
     left: 100%;
 }
 
-.light-mode .timeline-item-right .timeline-content::after {
+body.light-mode .timeline-item-right .timeline-content::after {
     border-color: transparent transparent transparent var(--light-secondary-color);
 }
 
@@ -461,7 +461,7 @@ body.light-mode .particle-network-animation {
     margin-bottom: 1rem;
 }
 
-.light-mode .timeline-subtitle {
+body.light-mode .timeline-subtitle {
     color: rgba(10, 10, 10, 0.7);
 }
 
@@ -503,7 +503,7 @@ body.light-mode .particle-network-animation {
     font-size: 0.9rem;
 }
 
-.light-mode .skill-tag {
+body.light-mode .skill-tag {
     background-color: var(--light-secondary-color);
 }
 
@@ -550,7 +550,7 @@ body.light-mode .particle-network-animation {
     color: var(--text-color);
 }
 
-.light-mode .form-group label {
+body.light-mode .form-group label {
     color: var(--light-text-color);
 }
 
@@ -562,11 +562,13 @@ body.light-mode .particle-network-animation {
     color: var(--text-color);
 }
 
-.light-mode .contact-form input,
-.light-mode .contact-form textarea {
+body.light-mode .contact-form input,
+body.light-mode .contact-form textarea {
     background-color: rgba(255, 255, 255, 0.9);
     border: 1px solid var(--light-secondary-color);
     color: var(--light-text-color);
+    -webkit-appearance: none;
+    border-radius: 4px;
 }
 
 .form-group input,
@@ -592,7 +594,7 @@ body.light-mode .particle-network-animation {
     color: rgba(255, 255, 255, 0.5);
 }
 
-.light-mode .contact-form ::placeholder {
+body.light-mode .contact-form ::placeholder {
     color: rgba(10, 10, 10, 0.6);
 }
 
@@ -809,7 +811,7 @@ body.light-mode .particle-network-animation {
     body.light-mode textarea,
     body.light-mode select,
     body.light-mode button {
-        background-color: var(--light-bg-color);
+        background-color: var(--light-secondary-color);
         color: var(--light-text-color);
     }
 }
