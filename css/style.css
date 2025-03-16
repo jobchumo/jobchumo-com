@@ -139,23 +139,6 @@ nav {
     border-bottom: 1px solid var(--light-border-color);
 }
 
-/* Add a semi-transparent backdrop for better text readability if needed */
-nav::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100vw; /* Extend beyond the container */
-    right: -100vw;
-    bottom: 0;
-    background-color: var(--bg-color);
-    opacity: 0.8;
-    z-index: -1;
-}
-
-.light-mode nav::before {
-    background-color: var(--light-bg-color);
-}
-
 .logo {
     font-size: 1.5rem;
     font-weight: 700;
@@ -181,6 +164,7 @@ nav::before {
     left: 0;
     right: 0;
     height: 100vh;
+    opacity: 0.15;
     background-color: var(--bg-color);
     z-index: -1;
 }
@@ -713,6 +697,17 @@ body.light-mode .particle-network-animation {
         margin-right: auto;
     }
 
+    /* Add this to ensure the hamburger doesn't overlap with existing content */
+    nav {
+        position: relative;
+        z-index: 10;
+    }
+
+    /* Add this to ensure the content is hidden behind the menu when open */
+    body.menu-open {
+        overflow: hidden;
+    }
+
     /* Mobile Timeline */
     .timeline::after {
         left: 31px;
@@ -743,7 +738,6 @@ body.light-mode .particle-network-animation {
         left: 100%;
     }
 
-    /* Mobile Skills Grid */
     .skills-grid {
         grid-template-columns: 1fr;
     }
