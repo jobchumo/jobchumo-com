@@ -38,7 +38,7 @@ body {
     overflow-x: hidden;
 }
 
-body.light-mode {
+.light-mode body {
     background-color: var(--light-bg-color);
     color: var(--light-text-color);
 }
