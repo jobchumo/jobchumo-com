@@ -35,26 +35,4 @@ document.addEventListener('DOMContentLoaded', function() {
         overlay.classList.remove('open');
         document.body.classList.remove('menu-open');
     }
-    
-    // Sync theme toggle between desktop and mobile
-    const desktopThemeToggle = document.getElementById('themeToggle');
-    const mobileThemeToggle = document.getElementById('mobileThemeToggle');
-    
-    if (desktopThemeToggle && mobileThemeToggle) {
-        // Sync initial state
-        mobileThemeToggle.checked = desktopThemeToggle.checked;
-        
-        // Sync when desktop toggle changes
-        desktopThemeToggle.addEventListener('change', function() {
-            mobileThemeToggle.checked = this.checked;
-        });
-        
-        // Sync when mobile toggle changes
-        mobileThemeToggle.addEventListener('change', function() {
-            desktopThemeToggle.checked = this.checked;
-            // Trigger the theme change event
-            const event = new Event('change');
-            desktopThemeToggle.dispatchEvent(event);
-        });
-    }
 }); 
