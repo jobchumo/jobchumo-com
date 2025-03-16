@@ -11,6 +11,7 @@
     <meta property="og:url" content="https://jobchumo.com">
 
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/mobile-nav.css">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
@@ -19,6 +20,52 @@
 <body>
 <!-- Network Animation Background -->
 <div class="particle-network-animation"></div>
+
+<!-- Mobile Navigation Menu -->
+<div class="mobile-nav-container">
+    <!-- Hamburger Menu Button -->
+    <div class="hamburger-container">
+        <label class="hamburger">
+            <input type="checkbox" id="hamburgerToggle">
+            <svg viewBox="0 0 32 32">
+                <path class="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
+                <path class="line" d="M7 16 27 16"></path>
+            </svg>
+        </label>
+    </div>
+    
+    <!-- Fullscreen Overlay Navigation -->
+    <div id="mobileNav" class="overlay">
+        <div class="overlay-content">
+            <a href="#experience">Experience</a>
+            <a href="#skills">Skills</a>
+            <a href="#certifications">Certifications</a>
+            <a href="#contact">Contact</a>
+            
+            <!-- Mobile Theme Toggle -->
+            <div class="mobile-theme-toggle">
+                <label for="mobileThemeToggle" class="themeToggle st-sunMoonThemeToggleBtn">
+                    <input type="checkbox" id="mobileThemeToggle" class="themeToggleInput" />
+                    <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" stroke="none">
+                        <mask id="mobile-moon-mask">
+                            <rect x="0" y="0" width="20" height="20" fill="white"></rect>
+                            <circle cx="11" cy="3" r="8" fill="black"></circle>
+                        </mask>
+                        <circle class="sunMoon" cx="10" cy="10" r="8" mask="url(#mobile-moon-mask)"></circle>
+                        <g>
+                            <circle class="sunRay sunRay1" cx="18" cy="10" r="1.5"></circle>
+                            <circle class="sunRay sunRay2" cx="14" cy="16.928" r="1.5"></circle>
+                            <circle class="sunRay sunRay3" cx="6" cy="16.928" r="1.5"></circle>
+                            <circle class="sunRay sunRay4" cx="2" cy="10" r="1.5"></circle>
+                            <circle class="sunRay sunRay5" cx="6" cy="3.1718" r="1.5"></circle>
+                            <circle class="sunRay sunRay6" cx="14" cy="3.1718" r="1.5"></circle>
+                        </g>
+                    </svg>
+                </label>
+            </div> 
+        </div>
+    </div>
+</div>
 
 <nav>
     <div class="logo">JC</div>
@@ -217,7 +264,7 @@
                 <label for="message">Message</label>
                 <textarea id="message" name="message" rows="5" required></textarea>
             </div>
-            <button type="submit" class="button" id="button">Send Message</button>
+            <button type="submit" class="button" id="button" style="font-family: inherit;">Send Message</button>
         </form>
     </div>
 
@@ -271,6 +318,7 @@
 <script src="js/particle-network.js"></script>
 <script src="js/themeToggle.js"></script>
 <script src="js/email.js"></script>
+<script src="/js/mobile-nav.js"></script>
 <!-- jQuery (required for particle network animation) -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </body>

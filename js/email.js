@@ -272,6 +272,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Apply validation rules based on field type
         if (field.required && value === '') {
             // Required field validation
+            field.classList.add('error');
             errorElement.textContent = 'This field is required';
             isValid = false;
         } else if (field.type === 'email' && value !== '') {

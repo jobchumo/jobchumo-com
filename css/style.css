@@ -44,7 +44,7 @@ body.light-mode {
 }
 
 body.menu-open {
-    overflow: hidden;
+    overflow: hidden; /* Prevents scrolling when mobile menu is open */
 }
 
 a {
@@ -90,6 +90,7 @@ h2 {
 }
 
 /* ===== LAYOUT COMPONENTS ===== */
+/* Main structural elements of the page */
 section {
     padding: var(--spacing) 0;
     border-bottom: 1px solid var(--secondary-color);
@@ -131,7 +132,7 @@ nav {
     padding: var(--spacing) 0;
     border-bottom: 1px solid var(--secondary-color);
     position: relative;
-    z-index: 10;
+    z-index: 10; /* Higher z-index to stay above other elements */
     background-color: transparent;
 }
 
@@ -158,6 +159,8 @@ nav {
     background-color: var(--light-bg-color);
 }
 
+/* ===== BACKGROUND EFFECTS ===== */
+/* Particle network background animation */
 .particle-network-animation {
     position: fixed;
     top: 0;
@@ -166,22 +169,16 @@ nav {
     height: 100vh;
     opacity: 0.3;
     background-color: var(--bg-color);
-    z-index: -1;
+    z-index: -1; /* Behind all content */
 }
-/* Light mode adjustments */
+
 body.light-mode .particle-network-animation {
     background-color: var(--light-bg-color);
-    opacity: 0.5;
+    opacity: 0.7;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .particle-network-animation {
-        height: 100%;
-    }
-}
-
-/* Theme Toggle Styles */
+/* ===== THEME TOGGLE ===== */
+/* Controls for switching between light and dark mode */
 .theme-toggle-container {
     margin-left: 0.1rem;
     display: flex;
@@ -242,6 +239,7 @@ body.light-mode .particle-network-animation {
     transform: translate(0px, 0px);
 }
   
+/* Animation delays for sun rays */
 .st-sunMoonThemeToggleBtn svg .sunRay2 {
     animation-delay: 0.05s !important;
 }
@@ -258,6 +256,7 @@ body.light-mode .particle-network-animation {
     animation-delay: 0.29s !important;
 }
   
+/* Theme toggle checked state */
 .st-sunMoonThemeToggleBtn .themeToggleInput:checked + svg {
     transform: rotate(90deg);
 }
@@ -281,6 +280,7 @@ body.light-mode .particle-network-animation {
 }
 
 /* ===== BUTTONS ===== */
+/* Button styles used throughout the site */
 .button {
     padding: 0.75rem 1.5rem;
     background-color: var(--accent-color);
@@ -304,6 +304,7 @@ body.light-mode .particle-network-animation {
     background-color: #2c5282;
 }
 
+/* Secondary button variant */
 .button.secondary {
     background-color: transparent;
     border: 1px solid var(--text-color);
@@ -330,12 +331,14 @@ body.light-mode .particle-network-animation {
 }
 
 /* ===== TIMELINE COMPONENT ===== */
+/* Timeline for displaying chronological information (e.g., work experience) */
 .timeline {
     position: relative;
     max-width: 1200px;
     margin: 0 auto;
 }
 
+/* Vertical timeline line */
 .timeline::after {
     content: '';
     position: absolute;
@@ -371,7 +374,7 @@ body.light-mode .particle-network-animation {
     left: 50%;
 }
 
-/* Timeline dots */
+/* Timeline dots (circular markers) */
 .timeline-item::after {
     content: '';
     position: absolute;
@@ -410,6 +413,7 @@ body.light-mode .particle-network-animation {
     color: var(--light-text-color);
 }
 
+/* Arrow pointers for timeline boxes */
 .timeline-content::after {
     content: '';
     position: absolute;
@@ -464,6 +468,7 @@ body.light-mode .particle-network-animation {
 }
 
 /* ===== SKILLS SECTION ===== */
+/* Grid layout for displaying skill categories */
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -500,6 +505,7 @@ body.light-mode .particle-network-animation {
 }
 
 /* ===== CERTIFICATIONS ===== */
+/* Styling for certification listings */
 .certification {
     margin-bottom: 2rem;
 }
@@ -510,6 +516,7 @@ body.light-mode .particle-network-animation {
 }
 
 /* ===== CONTACT FORM ===== */
+/* Contact form container and layout */
 .contact-form-container {
     max-width: 600px;
     margin: 2rem 0;
@@ -519,25 +526,6 @@ body.light-mode .particle-network-animation {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-}
-
-/* Form inputs styling */
-.contact-form input,
-.contact-form textarea {
-    background-color: rgba(44, 44, 44, 0.8);
-    border: 1px solid var(--secondary-color);
-    color: var(--text-color);
-}
-
-.light-mode .contact-form input,
-.light-mode .contact-form textarea {
-    background-color: rgba(255, 255, 255, 0.9);
-    border: 1px solid var(--light-secondary-color);
-    color: var(--light-text-color);
-}
-
-.light-mode .contact-form ::placeholder {
-    color: rgba(10, 10, 10, 0.6);
 }
 
 /* Form layout */
@@ -563,6 +551,21 @@ body.light-mode .particle-network-animation {
     color: var(--light-text-color);
 }
 
+/* Form inputs styling */
+.contact-form input,
+.contact-form textarea {
+    background-color: rgba(44, 44, 44, 0.8);
+    border: 1px solid var(--secondary-color);
+    color: var(--text-color);
+}
+
+.light-mode .contact-form input,
+.light-mode .contact-form textarea {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--light-secondary-color);
+    color: var(--light-text-color);
+}
+
 .form-group input,
 .form-group textarea {
     background-color: var(--secondary-color);
@@ -581,6 +584,15 @@ body.light-mode .particle-network-animation {
     outline: none;
 }
 
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.light-mode .contact-form ::placeholder {
+    color: rgba(10, 10, 10, 0.6);
+}
+
 /* Form validation */
 .form-group input.error,
 .form-group textarea.error {
@@ -595,17 +607,13 @@ body.light-mode .particle-network-animation {
     display: block;
 }
 
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-    color: rgba(255, 255, 255, 0.5);
-}
-
 .contact-form .button {
     align-self: flex-start;
     margin-top: 1rem;
 }
 
 /* ===== SOCIAL LINKS ===== */
+/* Social media links styling */
 .social-links {
     display: flex;
     gap: 1.5rem;
@@ -626,6 +634,7 @@ body.light-mode .particle-network-animation {
 }
 
 /* ===== ANIMATIONS ===== */
+/* Reusable animation classes */
 .fade-in {
     opacity: 0;
     transform: translateY(20px);
@@ -647,10 +656,18 @@ body.light-mode .particle-network-animation {
         transform: translateY(0);
     }
 }
-/* ===== Media Queries ===== */
+
+/* ===== RESPONSIVE STYLES ===== */
+/* Mobile and tablet adjustments */
 @media (max-width: 768px) {
+    /* Typography adjustments */
     h1 {
         font-size: 3rem;
+    }
+
+    /* Background adjustments */
+    .particle-network-animation {
+        height: 100%;
     }
 
     /* Mobile Navigation */
@@ -698,18 +715,18 @@ body.light-mode .particle-network-animation {
         margin-right: auto;
     }
 
-    /* Add this to ensure the hamburger doesn't overlap with existing content */
+    /* Ensure proper z-index for mobile navigation */
     nav {
         position: relative;
         z-index: 10;
     }
 
-    /* Add this to ensure the content is hidden behind the menu when open */
+    /* Prevent scrolling when menu is open */
     body.menu-open {
         overflow: hidden;
     }
 
-    /* Mobile Timeline */
+    /* Mobile Timeline adjustments */
     .timeline::after {
         left: 31px;
     }
@@ -739,6 +756,7 @@ body.light-mode .particle-network-animation {
         left: 100%;
     }
 
+    /* Mobile Skills Grid */
     .skills-grid {
         grid-template-columns: 1fr;
     }
