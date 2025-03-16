@@ -40,21 +40,9 @@ export function initThemeToggle() {
         if (this.checked) {
             body.classList.add('light-mode');
             localStorage.setItem('theme', 'light');
-            forceRepaint();
         } else {
             body.classList.remove('light-mode');
             localStorage.setItem('theme', 'dark');
         }
     });
-
-    function forceRepaint() {
-        const sections = document.querySelectorAll('section');
-        sections.forEach(section => {
-            const originalDisplay = section.style.display;
-            section.style.display = 'none';
-            // Force reflow
-            void section.offsetHeight;
-            section.style.display = originalDisplay;
-        });
-    }
 }

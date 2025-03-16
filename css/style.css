@@ -24,6 +24,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -36,9 +37,10 @@ body {
     padding: 0 var(--spacing);
     position: relative;
     overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
 }
 
-.light-mode {
+body.light-mode {
     background-color: var(--light-bg-color);
     color: var(--light-text-color);
 }
@@ -692,6 +694,11 @@ body.light-mode .particle-network-animation {
         box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
     }
 
+    body.light-mode .nav-links {
+        background-color: var(--light-bg-color);
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+    }
+
     .nav-links.active {
         right: 0;
     }
@@ -752,8 +759,19 @@ body.light-mode .particle-network-animation {
         right: auto;
     }
 
+    body.light-mode .timeline-item-left .timeline-content::after {
+        border-color: transparent transparent transparent var(--light-secondary-color);
+        left: 100%;
+        right: auto;
+    }
+
     .timeline-item-right .timeline-content::after {
         border-color: transparent transparent transparent var(--secondary-color);
+        left: 100%;
+    }
+
+    body.light-mode .timeline-item-right .timeline-content::after {
+        border-color: transparent transparent transparent var(--light-secondary-color);
         left: 100%;
     }
 
@@ -772,5 +790,26 @@ body.light-mode .particle-network-animation {
     .social-links {
         flex-direction: column;
         gap: 1rem;
+    }
+}
+
+/* iOS-specific fixes */
+@supports (-webkit-touch-callout: none) {
+    /* CSS specific to iOS devices */
+    body.light-mode {
+        -webkit-text-size-adjust: 100%;
+    }
+    
+    input, textarea, select, button {
+        -webkit-appearance: none;
+        border-radius: 0;
+    }
+    
+    body.light-mode input,
+    body.light-mode textarea,
+    body.light-mode select,
+    body.light-mode button {
+        background-color: var(--light-bg-color);
+        color: var(--light-text-color);
     }
 }
