@@ -67,6 +67,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 pointer-events: none;
             }
             
+            /* Media query for mobile devices */
+            @media (max-width: 768px) {
+                .popup-container {
+                    top: 80px; /* Position below hamburger menu */
+                    right: 20px;
+                    z-index: 999; /* Below hamburger menu z-index */
+                }
+            }
+            
             /* Individual notification */
             .popup {
                 background-color: var(--secondary-color);
@@ -267,6 +276,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Reset previous validation state
         field.classList.remove('invalid');
+        field.classList.remove('error')
         errorElement.classList.remove('visible');
 
         // Apply validation rules based on field type
@@ -293,6 +303,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // If invalid, show the error
         if (!isValid) {
+            field.classList.add('error')
             field.classList.add('invalid');
             errorElement.classList.add('visible');
         }
