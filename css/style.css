@@ -157,10 +157,11 @@ nav {
     display: flex;
     gap: 2rem;
     align-items: center;
+    background-color: transparent;
 }
 
 .light-mode .nav-links {
-    background-color: var(--light-bg-color);
+    background-color: transparent;
 }
 
 /* ===== BACKGROUND EFFECTS ===== */
