@@ -5,6 +5,8 @@
     --text-color: #f5f5f5;
     --accent-color: #3182ce;
     --secondary-color: #2c2c2c;
+    --hover-color: #2c5282;
+    --error-color: #e53e3e;
     --spacing: 2rem;
     --menu-transition-timing: cubic-bezier(0.645, 0.045, 0.355, 1);
     --menu-transition-duration: 0.3s;
@@ -24,6 +26,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -36,9 +39,10 @@ body {
     padding: 0 var(--spacing);
     position: relative;
     overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
 }
 
-body.light-mode {
+.light-mode {
     background-color: var(--light-bg-color);
     color: var(--light-text-color);
 }
@@ -153,10 +157,11 @@ nav {
     display: flex;
     gap: 2rem;
     align-items: center;
+    background-color: transparent;
 }
 
 .light-mode .nav-links {
-    background-color: var(--light-bg-color);
+    background-color: transparent;
 }
 
 /* ===== BACKGROUND EFFECTS ===== */
@@ -172,7 +177,7 @@ nav {
     z-index: -1; /* Behind all content */
 }
 
-body.light-mode .particle-network-animation {
+.light-mode .particle-network-animation {
     background-color: var(--light-bg-color);
     opacity: 0.7;
 }
@@ -285,7 +290,7 @@ body.light-mode .particle-network-animation {
 .button {
     padding: 0.75rem 1.5rem;
     background-color: var(--accent-color);
-    color: white;
+    color: var(--text-color);
     border: none;
     border-radius: 4px;
     font-weight: 600;
@@ -298,11 +303,11 @@ body.light-mode .particle-network-animation {
 }
 
 .button:hover {
-    background-color: #2c5282;
+    background-color: var(--hover-color);
 }
 
 .light-mode .button:hover {
-    background-color: #2c5282;
+    background-color: var(--hover-color);
 }
 
 /* Secondary button variant */
@@ -548,7 +553,7 @@ body.light-mode .particle-network-animation {
     color: var(--text-color);
 }
 
-.light-mode .form-group label {
+body.light-mode .form-group label {
     color: var(--light-text-color);
 }
 
@@ -560,11 +565,12 @@ body.light-mode .particle-network-animation {
     color: var(--text-color);
 }
 
-.light-mode .contact-form input,
-.light-mode .contact-form textarea {
+body.light-mode .contact-form input,
+body.light-mode .contact-form textarea {
     background-color: rgba(255, 255, 255, 0.9);
     border: 1px solid var(--light-secondary-color);
     color: var(--light-text-color);
+    border-radius: 4px;
 }
 
 .form-group input,
@@ -590,19 +596,19 @@ body.light-mode .particle-network-animation {
     color: rgba(255, 255, 255, 0.5);
 }
 
-.light-mode .contact-form ::placeholder {
+body.light-mode .contact-form ::placeholder {
     color: rgba(10, 10, 10, 0.6);
 }
 
 /* Form validation */
 .form-group input.error,
 .form-group textarea.error {
-    border-color: #e53e3e;
+    border-color: var(--error-color);
     background-color: rgba(229, 62, 62, 0.1);
 }
 
 .error-message {
-    color: #e53e3e;
+    color: var(--error-color);
     font-size: 0.8rem;
     margin-top: 0.25rem;
     display: block;
@@ -666,65 +672,14 @@ body.light-mode .particle-network-animation {
         font-size: 3rem;
     }
 
+    body.light-mode {
+        background-color: var(--light-bg-color);
+        color: var(--light-text-color);
+    }
+
     /* Background adjustments */
     .particle-network-animation {
         height: 100%;
-    }
-
-    /* Mobile Navigation */
-    .hamburger-menu {
-        display: flex;
-    }
-
-    .nav-links {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 70%;
-        height: 100vh;
-        background-color: var(--bg-color);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        transition: right 0.3s ease;
-        z-index: 9;
-        padding: 2rem;
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
-    }
-
-    .nav-links.active {
-        right: 0;
-    }
-
-    .nav-links a {
-        margin: 1.5rem 0;
-        font-size: 1.2rem;
-    }
-
-    .theme-toggle {
-        margin: 15px 0;
-    }
-
-    .nav-links .theme-toggle-wrapper {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        padding: 0 1rem;
-    }
-
-    .nav-links .theme-toggle-wrapper span {
-        margin-right: auto;
-    }
-
-    /* Ensure proper z-index for mobile navigation */
-    nav {
-        position: relative;
-        z-index: 10;
-    }
-
-    /* Prevent scrolling when menu is open */
-    body.menu-open {
-        overflow: hidden;
     }
 
     /* Mobile Timeline adjustments */
@@ -752,8 +707,19 @@ body.light-mode .particle-network-animation {
         right: auto;
     }
 
+    .light-mode .timeline-item-left .timeline-content::after {
+        border-color: transparent transparent transparent var(--light-secondary-color);
+        left: 100%;
+        right: auto;
+    }
+
     .timeline-item-right .timeline-content::after {
         border-color: transparent transparent transparent var(--secondary-color);
+        left: 100%;
+    }
+
+    .light-mode .timeline-item-right .timeline-content::after {
+        border-color: transparent transparent transparent var(--light-secondary-color);
         left: 100%;
     }
 
