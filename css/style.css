@@ -774,3 +774,43 @@ body.light-mode .particle-network-animation {
         gap: 1rem;
     }
 }
+
+/* ===== SAFARI SPECIFIC FIXES ===== */
+/* Fixes for Safari on iOS devices */
+@supports (-webkit-touch-callout: none) {
+    /* iOS Safari specific styles */
+    body.light-mode {
+        background-color: var(--light-bg-color) !important;
+        color: var(--light-text-color) !important;
+    }
+    
+    body.light-mode .particle-network-animation {
+        opacity: 0.5;
+        background-color: transparent !important;
+        z-index: -10; /* Push further back */
+    }
+    
+    /* Ensure all sections have proper background in light mode */
+    body.light-mode section,
+    body.light-mode .hero,
+    body.light-mode footer,
+    body.light-mode nav {
+        background-color: var(--light-bg-color);
+        position: relative;
+        z-index: 1;
+    }
+    
+    /* Force background color on elements that might be affected */
+    body.light-mode .timeline-content,
+    body.light-mode .skill-tag,
+    body.light-mode .contact-form input,
+    body.light-mode .contact-form textarea {
+        background-color: var(--light-secondary-color) !important;
+        color: var(--light-text-color) !important;
+    }
+    
+    body.light-mode .timeline-subtitle,
+    body.light-mode .timeline-description {
+        color: var(--light-text-color) !important;
+    }
+}
